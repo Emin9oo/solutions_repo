@@ -1,40 +1,53 @@
 # Problem 1
-import math
+Here’s the correctly formatted version, ensuring that formulas display properly when copied and pasted.  
 
-def projectile_motion(v0, theta):
-    g = 9.81  # Acceleration due to gravity (m/s^2)
-    
-    # Convert angle to radians
-    theta_rad = math.radians(theta)
-    
-    # Horizontal and vertical components of velocity
-    v_x = v0 * math.cos(theta_rad)
-    v_y = v0 * math.sin(theta_rad)
-    
-    # Time to reach max height
-    t_max = v_y / g
-    
-    # Total time of flight
-    T = 2 * t_max
-    
-    # Maximum height
-    h_max = (v_y ** 2) / (2 * g)
-    
-    # Range (horizontal distance)
-    R = v_x * T
-    
-    return {
-        "Time to Max Height (s)": t_max,
-        "Total Time of Flight (s)": T,
-        "Maximum Height (m)": h_max,
-        "Range (m)": R
-    }
+---
 
-# Example usage
-if __name__ == "__main__":
-    v0 = float(input("Enter initial velocity (m/s): "))
-    theta = float(input("Enter launch angle (degrees): "))
-    results = projectile_motion(v0, theta)
-    
-    for key, value in results.items():
-        print(f"{key}: {value:.2f}")
+### **Projectile Motion: Definition & Equations**  
+
+**Projectile motion** refers to the motion of an object launched into the air under the influence of gravity, following a **parabolic path**. It is analyzed as two independent motions:  
+
+1. **Horizontal motion** – constant velocity (no horizontal acceleration if air resistance is ignored).  
+2. **Vertical motion** – uniformly accelerated motion due to gravity.  
+
+---
+
+### **Equations of Projectile Motion**  
+
+Let:  
+- \( v_0 \) = Initial velocity  
+- \( \theta \) = Launch angle  
+- \( g \) = Acceleration due to gravity (9.81 m/s²)  
+- \( t \) = Time  
+
+#### **1. Horizontal Motion**  
+- **Velocity:**  
+  $$ v_x = v_0 \cos\theta $$  
+  (Constant, since no horizontal acceleration)  
+- **Displacement:**  
+  $$ x = v_0 \cos\theta \cdot t $$  
+
+#### **2. Vertical Motion**  
+- **Velocity:**  
+  $$ v_y = v_0 \sin\theta - g t $$  
+- **Displacement:**  
+  $$ y = v_0 \sin\theta \cdot t - \frac{1}{2} g t^2 $$  
+- **Time to reach max height:**  
+  $$ t_{\text{max}} = \frac{v_0 \sin\theta}{g} $$  
+- **Maximum height:**  
+  $$ h_{\text{max}} = \frac{(v_0 \sin\theta)^2}{2g} $$  
+
+#### **3. Time of Flight**  
+The total time the projectile is in the air:  
+  $$ T = \frac{2 v_0 \sin\theta}{g} $$  
+
+#### **4. Range (Horizontal Distance)**  
+The total horizontal distance traveled:  
+  $$ R = \frac{v_0^2 \sin(2\theta)}{g} $$  
+
+---
+
+### **Key Points**  
+- The trajectory is a **parabola**.  
+- The horizontal and vertical motions are **independent** of each other.  
+- The optimal launch angle for maximum range is **45°** (without air resistance).  
