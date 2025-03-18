@@ -51,3 +51,4 @@ The total horizontal distance traveled:
 - The trajectory is a **parabola**.  
 - The horizontal and vertical motions are **independent** of each other.  
 - The optimal launch angle for maximum range is **45°** (without air resistance).  
+![alt text](image.png)
