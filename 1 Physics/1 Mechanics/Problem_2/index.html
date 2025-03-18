@@ -50,6 +50,26 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#example-1-approximation-of-ex-at-x-0-maclaurin-series">Example 1: Approximation of \( e^x \) at \( x = 0 \) (Maclaurin Series)</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#python-code-for-ex-approximation">Python Code for \( e^x \) Approximation</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example-2-approximation-of-sinx-at-x-0">Example 2: Approximation of \( \sin(x) \) at \( x = 0 \)</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#python-code-for-sinx-approximation">Python Code for \( \sin(x) \) Approximation</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example-3-approximation-of-ln1x-at-x-0">Example 3: Approximation of \( \ln(1+x) \) at \( x = 0 \)</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#python-code-for-ln1x-approximation">Python Code for \( \ln(1+x) \) Approximation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -172,6 +192,84 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-2">Problem 2</h1>
+<h2 id="example-1-approximation-of-ex-at-x-0-maclaurin-series"><strong>Example 1: Approximation of <span class="arithmatex">\( e^x \)</span> at <span class="arithmatex">\( x = 0 \)</span> (Maclaurin Series)</strong></h2>
+<p>The Taylor series expansion of <span class="arithmatex">\( e^x \)</span> around <span class="arithmatex">\( x = 0 \)</span> (Maclaurin series) is:</p>
+<div class="arithmatex">\[
+e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots
+\]</div>
+<p>For small <span class="arithmatex">\( x \)</span>, we can approximate <span class="arithmatex">\( e^x \)</span> using a few terms.</p>
+<h3 id="python-code-for-ex-approximation"><strong>Python Code for <span class="arithmatex">\( e^x \)</span> Approximation</strong></h3>
+<pre><code class="language-python">import math
+
+def taylor_exp(x, n):
+    """Approximate e^x using the Taylor series expansion up to n terms."""
+    result = sum((x**i) / math.factorial(i) for i in range(n+1))
+    return result
+
+# Example: Approximate e^x for x = 1 using 5 terms
+x_value = 1
+n_terms = 5
+approx = taylor_exp(x_value, n_terms)
+exact = math.exp(x_value)
+
+print(f"Approximate e^{x_value} using {n_terms} terms: {approx}")
+print(f"Exact e^{x_value}: {exact}")
+print(f"Error: {abs(approx - exact)}")
+</code></pre>
+<hr/>
+<h2 id="example-2-approximation-of-sinx-at-x-0"><strong>Example 2: Approximation of <span class="arithmatex">\( \sin(x) \)</span> at <span class="arithmatex">\( x = 0 \)</span></strong></h2>
+<p>The Taylor series for <span class="arithmatex">\( \sin(x) \)</span> around <span class="arithmatex">\( x = 0 \)</span> (Maclaurin series) is:</p>
+<div class="arithmatex">\[
+\sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
+\]</div>
+<h3 id="python-code-for-sinx-approximation"><strong>Python Code for <span class="arithmatex">\( \sin(x) \)</span> Approximation</strong></h3>
+<pre><code class="language-python">def taylor_sin(x, n):
+    """Approximate sin(x) using the Taylor series expansion up to n terms."""
+    result = sum(((-1)**i * x**(2*i+1)) / math.factorial(2*i+1) for i in range(n+1))
+    return result
+
+# Example: Approximate sin(x) for x = π/4 using 5 terms
+x_value = math.pi / 4
+n_terms = 5
+approx = taylor_sin(x_value, n_terms)
+exact = math.sin(x_value)
+
+print(f"Approximate sin({x_value}) using {n_terms} terms: {approx}")
+print(f"Exact sin({x_value}): {exact}")
+print(f"Error: {abs(approx - exact)}")
+</code></pre>
+<hr/>
+<h2 id="example-3-approximation-of-ln1x-at-x-0"><strong>Example 3: Approximation of <span class="arithmatex">\( \ln(1+x) \)</span> at <span class="arithmatex">\( x = 0 \)</span></strong></h2>
+<p>The Taylor series for <span class="arithmatex">\( \ln(1+x) \)</span> around <span class="arithmatex">\( x = 0 \)</span> is:</p>
+<div class="arithmatex">\[
+\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \dots
+\]</div>
+<h3 id="python-code-for-ln1x-approximation"><strong>Python Code for <span class="arithmatex">\( \ln(1+x) \)</span> Approximation</strong></h3>
+<pre><code class="language-python">def taylor_ln1p(x, n):
+    """Approximate ln(1+x) using the Taylor series expansion up to n terms."""
+    if abs(x) &gt;= 1:
+        raise ValueError("Series does not converge for |x| &gt;= 1")
+
+    result = sum(((-1)**(i+1) * x**i) / i for i in range(1, n+1))
+    return result
+
+# Example: Approximate ln(1+x) for x = 0.5 using 5 terms
+x_value = 0.5
+n_terms = 5
+approx = taylor_ln1p(x_value, n_terms)
+exact = math.log(1 + x_value)
+
+print(f"Approximate ln(1+{x_value}) using {n_terms} terms: {approx}")
+print(f"Exact ln(1+{x_value}): {exact}")
+print(f"Error: {abs(approx - exact)}")
+</code></pre>
+<hr/>
+<h3 id="key-takeaways"><strong>Key Takeaways</strong></h3>
+<ul>
+<li>The more terms used, the more accurate the approximation.</li>
+<li>The error depends on the remainder term.</li>
+<li>Taylor series is useful in numerical computations where exact functions are costly.</li>
+</ul>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
