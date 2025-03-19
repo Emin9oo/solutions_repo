@@ -51,4 +51,39 @@ The total horizontal distance traveled:
 - The trajectory is a **parabola**.  
 - The horizontal and vertical motions are **independent** of each other.  
 - The optimal launch angle for maximum range is **45°** (without air resistance).  
-![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+g = 9.81  # Gravity (m/s^2)
+v0 = 20   # Initial velocity (m/s)
+
+# Function to calculate trajectory
+def projectile_trajectory(v0, angle):
+    angle_rad = np.radians(angle)
+    t_flight = 2 * v0 * np.sin(angle_rad) / g
+    t = np.linspace(0, t_flight, num=500)
+    
+    x = v0 * np.cos(angle_rad) * t
+    y = v0 * np.sin(angle_rad) * t - 0.5 * g * t**2
+    
+    return x, y
+
+# Launch angles to plot
+angles = [15, 30, 45, 60, 75]
+
+# Create the plot
+plt.figure(figsize=(10, 6))
+
+for angle in angles:
+    x, y = projectile_trajectory(v0, angle)
+    plt.plot(x, y, label=f'{angle}°')
+
+plt.title('Projectile Trajectories for Different Launch Angles')
+plt.xlabel('Distance (m)')
+plt.ylabel('Height (m)')
+plt.legend()
+plt.grid(True)
+plt.show()
