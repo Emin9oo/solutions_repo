@@ -53,6 +53,10 @@ The total horizontal distance traveled:
 - The optimal launch angle for maximum range is **45°** (without air resistance).  
 ![alt text](image-1.png)
 ![alt text](image-2.png)
+---
+
+### **Python Code (Correct Formatting)**
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -81,9 +85,20 @@ for angle in angles:
     x, y = projectile_trajectory(v0, angle)
     plt.plot(x, y, label=f'{angle}°')
 
+# Labels and Title
 plt.title('Projectile Trajectories for Different Launch Angles')
 plt.xlabel('Distance (m)')
 plt.ylabel('Height (m)')
 plt.legend()
 plt.grid(True)
+
+# Show the plot
 plt.show()
+```
+
+---
+
+### **Key Fixes:**
+✔ **Proper Indentation**: Ensures the function and loops are formatted correctly.  
+✔ **Line Breaks**: Each statement is on a new line to improve readability.  
+✔ **Correct Code Syntax**: Fixed potential display issues caused by improper formatting.
