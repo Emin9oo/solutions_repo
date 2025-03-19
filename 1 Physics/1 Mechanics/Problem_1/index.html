@@ -236,37 +236,8 @@
 <li>The optimal launch angle for maximum range is <strong>45°</strong> (without air resistance).<br/>
 <img alt="alt text" src="../image-1.png"/>
 <img alt="alt text" src="../image-2.png"/>
-import numpy as np
-import matplotlib.pyplot as plt</li>
+This graphic displays <strong>projectile trajectories for different launch angles (15°, 30°, 45°, 60°, and 75°)</strong>. It shows how each angle affects the projectile’s <strong>horizontal range and maximum height</strong>. Lower angles result in longer distances but lower heights, while higher angles create steeper curves with shorter ranges. The <strong>45° trajectory</strong> provides the <strong>maximum horizontal distance</strong>.</li>
 </ul>
-<h1 id="constants">Constants</h1>
-<p>g = 9.81  # Gravity (m/s^2)
-v0 = 20   # Initial velocity (m/s)</p>
-<h1 id="function-to-calculate-trajectory">Function to calculate trajectory</h1>
-<p>def projectile_trajectory(v0, angle):
-    angle_rad = np.radians(angle)
-    t_flight = 2 * v0 * np.sin(angle_rad) / g
-    t = np.linspace(0, t_flight, num=500)</p>
-<pre><code>x = v0 * np.cos(angle_rad) * t
-y = v0 * np.sin(angle_rad) * t - 0.5 * g * t**2
-
-return x, y
-</code></pre>
-<h1 id="launch-angles-to-plot">Launch angles to plot</h1>
-<p>angles = [15, 30, 45, 60, 75]</p>
-<h1 id="create-the-plot">Create the plot</h1>
-<p>plt.figure(figsize=(10, 6))</p>
-<p>for angle in angles:
-    x, y = projectile_trajectory(v0, angle)
-    plt.plot(x, y, label=f'{angle}°')</p>
-<h1 id="labels-and-title">Labels and Title</h1>
-<p>plt.title('Projectile Trajectories for Different Launch Angles')
-plt.xlabel('Distance (m)')
-plt.ylabel('Height (m)')
-plt.legend()
-plt.grid(True)</p>
-<h1 id="show-the-plot">Show the plot</h1>
-<p>plt.show()</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
