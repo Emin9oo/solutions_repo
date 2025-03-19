@@ -64,6 +64,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#key-points">Key Points</a>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#python-code-correct-formatting">Python Code (Correct Formatting)</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#key-fixes">Key Fixes:</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -235,36 +239,53 @@
 <li>The horizontal and vertical motions are <strong>independent</strong> of each other.  </li>
 <li>The optimal launch angle for maximum range is <strong>45°</strong> (without air resistance).<br/>
 <img alt="alt text" src="../image-1.png"/>
-<img alt="alt text" src="../image-2.png"/>
-import numpy as np
-import matplotlib.pyplot as plt</li>
+<img alt="alt text" src="../image-2.png"/></li>
 </ul>
-<h1 id="constants">Constants</h1>
-<p>g = 9.81  # Gravity (m/s^2)
-v0 = 20   # Initial velocity (m/s)</p>
-<h1 id="function-to-calculate-trajectory">Function to calculate trajectory</h1>
-<p>def projectile_trajectory(v0, angle):
+<hr/>
+<h3 id="python-code-correct-formatting"><strong>Python Code (Correct Formatting)</strong></h3>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+g = 9.81  # Gravity (m/s^2)
+v0 = 20   # Initial velocity (m/s)
+
+# Function to calculate trajectory
+def projectile_trajectory(v0, angle):
     angle_rad = np.radians(angle)
     t_flight = 2 * v0 * np.sin(angle_rad) / g
-    t = np.linspace(0, t_flight, num=500)</p>
-<pre><code>x = v0 * np.cos(angle_rad) * t
-y = v0 * np.sin(angle_rad) * t - 0.5 * g * t**2
+    t = np.linspace(0, t_flight, num=500)
 
-return x, y
-</code></pre>
-<h1 id="launch-angles-to-plot">Launch angles to plot</h1>
-<p>angles = [15, 30, 45, 60, 75]</p>
-<h1 id="create-the-plot">Create the plot</h1>
-<p>plt.figure(figsize=(10, 6))</p>
-<p>for angle in angles:
+    x = v0 * np.cos(angle_rad) * t
+    y = v0 * np.sin(angle_rad) * t - 0.5 * g * t**2
+
+    return x, y
+
+# Launch angles to plot
+angles = [15, 30, 45, 60, 75]
+
+# Create the plot
+plt.figure(figsize=(10, 6))
+
+for angle in angles:
     x, y = projectile_trajectory(v0, angle)
-    plt.plot(x, y, label=f'{angle}°')</p>
-<p>plt.title('Projectile Trajectories for Different Launch Angles')
+    plt.plot(x, y, label=f'{angle}°')
+
+# Labels and Title
+plt.title('Projectile Trajectories for Different Launch Angles')
 plt.xlabel('Distance (m)')
 plt.ylabel('Height (m)')
 plt.legend()
 plt.grid(True)
-plt.show()</p>
+
+# Show the plot
+plt.show()
+</code></pre>
+<hr/>
+<h3 id="key-fixes"><strong>Key Fixes:</strong></h3>
+<p>✔ <strong>Proper Indentation</strong>: Ensures the function and loops are formatted correctly.<br/>
+✔ <strong>Line Breaks</strong>: Each statement is on a new line to improve readability.<br/>
+✔ <strong>Correct Code Syntax</strong>: Fixed potential display issues caused by improper formatting.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
