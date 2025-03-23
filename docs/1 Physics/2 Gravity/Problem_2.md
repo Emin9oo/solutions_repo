@@ -60,11 +60,21 @@ This chart gives a comparison of escape velocities for the Earth, Moon, Sun, and
 
 ---
 
-#### Animation: Object Moving to Escape Velocity
+####  Object Moving to Escape Velocity
 
 We can animate a simple object trying to escape a celestial body’s gravity by illustrating the increase in velocity over time. Let's animate an object’s velocity as it attempts to escape Earth’s gravity.
 
-![alt text](image-7.png)
+![alt text](image-9.png)
+
+What This Image Shows
+The blue dots show an object's velocity increasing over time.
+
+The red dashed line represents the required escape velocity.
+
+If the object reaches or exceeds this velocity, it will leave Earth's gravitational field.
+
+
+
 
 
 ### Explanation:
