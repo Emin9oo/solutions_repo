@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 3 - Physics and Mathematics</title>
+<title>Trajectories of a Freely Released Payload Near Earth - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 3";
+        var mkdocs_page_name = "Trajectories of a Freely Released Payload Near Earth";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_3.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,8 +58,44 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Escape Velocities and Cosmic Velocities</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 3</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Trajectories of a Freely Released Payload Near Earth</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundations">Theoretical Foundations</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#newtons-laws-of-motion">Newton's Laws of Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory-equations">Trajectory Equations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#velocity-conditions">Velocity Conditions</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#graphical-representations">Graphical Representations</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-payload-trajectories-for-different-initial-velocities">1. Payload Trajectories for Different Initial Velocities</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-velocity-vs-altitude">2. Velocity vs. Altitude</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-time-evolution-of-payload-position">3. Time Evolution of Payload Position</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#4-energy-analysis">4. Energy Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#5-orbital-shape-dependence-on-initial-speed">5. Orbital Shape Dependence on Initial Speed</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#6-effect-of-release-direction">6. Effect of Release Direction</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#7-influence-of-altitude-on-required-velocity">7. Influence of Altitude on Required Velocity</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#computational-model-and-visualization">Computational Model and Visualization</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#python-simulation">Python Simulation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -163,7 +199,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Problem 3</li>
+<li class="breadcrumb-item active">Trajectories of a Freely Released Payload Near Earth</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +207,77 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-3">Problem 3</h1>
+<h1 id="trajectories-of-a-freely-released-payload-near-earth">Trajectories of a Freely Released Payload Near Earth</h1>
+<h2 id="motivation">Motivation</h2>
+<p>The study of payload trajectories is fundamental in aerospace engineering and orbital mechanics. Understanding how an object behaves when released in Earth's gravitational field is crucial for satellite deployment, space missions, and re-entry calculations. By analyzing different initial conditions—such as release altitude, velocity, and direction—we can predict whether a payload will fall back to Earth, enter orbit, or escape Earth's gravity. These insights are essential for mission planning, space station resupply missions, and understanding the physics governing celestial motion.</p>
+<p>Additionally, analyzing these trajectories helps optimize spacecraft re-entry procedures, ensuring safe returns. It is also vital for space debris management, predicting how objects behave after separation from spacecraft, and designing retrieval missions for defunct satellites or space station modules.</p>
+<h2 id="theoretical-foundations">Theoretical Foundations</h2>
+<h3 id="newtons-laws-of-motion">Newton's Laws of Motion</h3>
+<p>Newton’s laws describe the motion of objects under forces, including gravity. The second law states:</p>
+<div class="arithmatex">\[
+F = ma
+\]</div>
+<p>where:
+- <span class="arithmatex">\( F \)</span> is the force acting on the payload,
+- <span class="arithmatex">\( m \)</span> is the mass of the payload,
+- <span class="arithmatex">\( a \)</span> is the acceleration.</p>
+<p>In the case of a payload released near Earth, the only significant force is gravitational attraction, given by Newton’s Law of Universal Gravitation:</p>
+<div class="arithmatex">\[
+F = \frac{GMm}{r^2}
+\]</div>
+<p>where:
+- <span class="arithmatex">\( G \)</span> is the gravitational constant (<span class="arithmatex">\( 6.674 \times 10^{-11} \)</span> m³/kg/s²),
+- <span class="arithmatex">\( M \)</span> is Earth's mass (<span class="arithmatex">\( 5.972 \times 10^{24} \)</span> kg),
+- <span class="arithmatex">\( r \)</span> is the distance from the Earth's center.</p>
+<p>The acceleration due to gravity at any altitude is:</p>
+<div class="arithmatex">\[
+a = \frac{GM}{r^2}
+\]</div>
+<p>For an object released from rest, this determines its free-fall trajectory.</p>
+<h3 id="trajectory-equations">Trajectory Equations</h3>
+<p>Depending on the initial velocity <span class="arithmatex">\( v_0 \)</span>, the payload follows different trajectories:
+- If <span class="arithmatex">\( v_0 &lt; v_c \)</span> (circular velocity), it falls back to Earth.
+- If <span class="arithmatex">\( v_0 = v_c \)</span>, it follows a circular orbit.
+- If <span class="arithmatex">\( v_c &lt; v_0 &lt; v_e \)</span> (escape velocity), it follows an elliptical orbit.
+- If <span class="arithmatex">\( v_0 = v_e \)</span>, it escapes Earth’s gravity.
+- If <span class="arithmatex">\( v_0 &gt; v_e \)</span>, it follows a hyperbolic trajectory.</p>
+<h3 id="velocity-conditions">Velocity Conditions</h3>
+<ul>
+<li><strong>Circular Velocity:</strong>
+  [
+  v_c = \sqrt{\frac{GM}{r}}
+  ]</li>
+<li><strong>Escape Velocity:</strong>
+  [
+  v_e = \sqrt{\frac{2GM}{r}}
+  ]</li>
+</ul>
+<h2 id="graphical-representations">Graphical Representations</h2>
+<h3 id="1-payload-trajectories-for-different-initial-velocities">1. Payload Trajectories for Different Initial Velocities</h3>
+<p><em>Diagram showing free-fall, circular, elliptical, and escape trajectories.</em></p>
+<h3 id="2-velocity-vs-altitude">2. Velocity vs. Altitude</h3>
+<p><em>Graph illustrating how velocity changes with altitude for different trajectories.</em></p>
+<h3 id="3-time-evolution-of-payload-position">3. Time Evolution of Payload Position</h3>
+<p><em>A time-series plot displaying how altitude changes over time for different initial conditions.</em></p>
+<h3 id="4-energy-analysis">4. Energy Analysis</h3>
+<p><em>A plot showing kinetic, potential, and total energy variations as the payload moves in different trajectory scenarios.</em></p>
+<h3 id="5-orbital-shape-dependence-on-initial-speed">5. Orbital Shape Dependence on Initial Speed</h3>
+<p><em>Comparison of trajectory eccentricities based on initial velocity variations.</em></p>
+<h3 id="6-effect-of-release-direction">6. Effect of Release Direction</h3>
+<p><em>Visualizations showing how release angles affect orbital paths.</em></p>
+<h3 id="7-influence-of-altitude-on-required-velocity">7. Influence of Altitude on Required Velocity</h3>
+<p><em>A graph showing how orbital insertion velocities change with altitude.</em></p>
+<h2 id="computational-model-and-visualization">Computational Model and Visualization</h2>
+<p>The computational model simulates the trajectories of payloads released near Earth under the influence of gravity. It calculates orbital parameters such as eccentricity, specific energy, and angular momentum, and visualizes different types of trajectories through static plots. The model demonstrates how initial conditions determine whether a payload will enter orbit, escape Earth's gravitational field, or reenter the atmosphere.</p>
+<h2 id="python-simulation">Python Simulation</h2>
+<p><img alt="alt text" src="../image-10.png"/></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Understanding payload trajectories near Earth is essential for space missions, satellite deployment, and interplanetary travel. Theoretical models combined with computational simulations provide insights into how different initial conditions affect an object's motion. These principles are the foundation of modern astronautics and space exploration.</p>
+<p>Key insights include:
+- The trajectory depends on the initial speed and direction of release.
+- Specific velocity thresholds (circular, escape) define different types of motion.
+- Orbital mechanics plays a crucial role in satellite positioning, re-entry, and deep-space exploration.</p>
+<p>Further study can involve atmospheric drag, non-uniform gravitational fields, and real-time tracking of space objects, which are critical for long-term sustainability in space operations.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
