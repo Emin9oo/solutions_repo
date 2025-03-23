@@ -1,5 +1,5 @@
 # Problem 2: Investigating the Dynamics of a Forced Damped Pendulum
-
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
@@ -30,14 +30,8 @@ omega = 1.5    # Frequency of external force
 # - F is the amplitude of the external force
 # - omega is the frequency of the external force
 
-# For small theta, we can linearize the equation by approximating sin(theta) ≈ theta:
+# For small theta, we can linearize the equation by approximating sin(theta) ≈ theta
 # theta''(t) + q * theta'(t) + theta = F * cos(omega * t)
-
-# The solution will have two components: a transient term that decays over time and a steady-state oscillation at frequency omega.
-
-# Resonance occurs when the driving frequency omega matches the natural frequency of the system (omega_0), 
-# which is given by the formula:
-# omega_0 = sqrt(1 - (q^2 / 4))
 
 # 4. Differential equation for the forced damped pendulum
 def forced_damped_pendulum(t, y, q, F, omega):
@@ -126,3 +120,4 @@ plt.show()
 # 16. Limitations and Extensions:
 # 1. Nonlinear Damping: The model assumes linear damping, but real-world systems may have air resistance and other nonlinear effects.
 # 2. Non-Periodic Forcing: External forces may be irregular in real applications, requiring stochastic or chaotic modeling.
+
