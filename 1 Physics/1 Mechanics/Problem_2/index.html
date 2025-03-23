@@ -50,26 +50,6 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
 <ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="#example-1-approximation-of-ex-at-x-0-maclaurin-series">Example 1: Approximation of \( e^x \) at \( x = 0 \) (Maclaurin Series)</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#python-code-for-ex-approximation">Python Code for \( e^x \) Approximation</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#example-2-approximation-of-sinx-at-x-0">Example 2: Approximation of \( \sin(x) \) at \( x = 0 \)</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#python-code-for-sinx-approximation">Python Code for \( \sin(x) \) Approximation</a>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#example-3-approximation-of-ln1x-at-x-0">Example 3: Approximation of \( \ln(1+x) \) at \( x = 0 \)</a>
-<ul>
-<li class="toctree-l4"><a class="reference internal" href="#python-code-for-ln1x-approximation">Python Code for \( \ln(1+x) \) Approximation</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -192,84 +172,128 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-2">Problem 2</h1>
-<h2 id="example-1-approximation-of-ex-at-x-0-maclaurin-series"><strong>Example 1: Approximation of <span class="arithmatex">\( e^x \)</span> at <span class="arithmatex">\( x = 0 \)</span> (Maclaurin Series)</strong></h2>
-<p>The Taylor series expansion of <span class="arithmatex">\( e^x \)</span> around <span class="arithmatex">\( x = 0 \)</span> (Maclaurin series) is:</p>
+<h1 id="investigating-the-dynamics-of-a-forced-damped-pendulum">Investigating the Dynamics of a Forced Damped Pendulum</h1>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
+<h3 id="governing-equation">Governing Equation:</h3>
+<p>The equation of motion for a forced damped pendulum is given by:</p>
 <div class="arithmatex">\[
-e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots
+\frac{d^2\theta}{dt^2} + q \frac{d\theta}{dt} + \sin(\theta) = F \cos(\omega t)
 \]</div>
-<p>For small <span class="arithmatex">\( x \)</span>, we can approximate <span class="arithmatex">\( e^x \)</span> using a few terms.</p>
-<h3 id="python-code-for-ex-approximation"><strong>Python Code for <span class="arithmatex">\( e^x \)</span> Approximation</strong></h3>
-<pre><code class="language-python">import math
-
-def taylor_exp(x, n):
-    """Approximate e^x using the Taylor series expansion up to n terms."""
-    result = sum((x**i) / math.factorial(i) for i in range(n+1))
-    return result
-
-# Example: Approximate e^x for x = 1 using 5 terms
-x_value = 1
-n_terms = 5
-approx = taylor_exp(x_value, n_terms)
-exact = math.exp(x_value)
-
-print(f"Approximate e^{x_value} using {n_terms} terms: {approx}")
-print(f"Exact e^{x_value}: {exact}")
-print(f"Error: {abs(approx - exact)}")
-</code></pre>
-<hr/>
-<h2 id="example-2-approximation-of-sinx-at-x-0"><strong>Example 2: Approximation of <span class="arithmatex">\( \sin(x) \)</span> at <span class="arithmatex">\( x = 0 \)</span></strong></h2>
-<p>The Taylor series for <span class="arithmatex">\( \sin(x) \)</span> around <span class="arithmatex">\( x = 0 \)</span> (Maclaurin series) is:</p>
+<p>where:
+- <span class="arithmatex">\( \theta \)</span> is the angular displacement,
+- <span class="arithmatex">\( q \)</span> is the damping coefficient,
+- <span class="arithmatex">\( F \)</span> is the driving force amplitude,
+- <span class="arithmatex">\( \omega \)</span> is the driving frequency,
+- <span class="arithmatex">\( t \)</span> is time.</p>
+<h3 id="small-angle-approximation">Small-Angle Approximation:</h3>
+<p>For small <span class="arithmatex">\( \theta \)</span>, we approximate <span class="arithmatex">\( \sin(\theta) \approx \theta \)</span>, leading to the linearized equation:</p>
 <div class="arithmatex">\[
-\sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
+\frac{d^2\theta}{dt^2} + q \frac{d\theta}{dt} + \theta = F \cos(\omega t)
 \]</div>
-<h3 id="python-code-for-sinx-approximation"><strong>Python Code for <span class="arithmatex">\( \sin(x) \)</span> Approximation</strong></h3>
-<pre><code class="language-python">def taylor_sin(x, n):
-    """Approximate sin(x) using the Taylor series expansion up to n terms."""
-    result = sum(((-1)**i * x**(2*i+1)) / math.factorial(2*i+1) for i in range(n+1))
-    return result
-
-# Example: Approximate sin(x) for x = π/4 using 5 terms
-x_value = math.pi / 4
-n_terms = 5
-approx = taylor_sin(x_value, n_terms)
-exact = math.sin(x_value)
-
-print(f"Approximate sin({x_value}) using {n_terms} terms: {approx}")
-print(f"Exact sin({x_value}): {exact}")
-print(f"Error: {abs(approx - exact)}")
-</code></pre>
-<hr/>
-<h2 id="example-3-approximation-of-ln1x-at-x-0"><strong>Example 3: Approximation of <span class="arithmatex">\( \ln(1+x) \)</span> at <span class="arithmatex">\( x = 0 \)</span></strong></h2>
-<p>The Taylor series for <span class="arithmatex">\( \ln(1+x) \)</span> around <span class="arithmatex">\( x = 0 \)</span> is:</p>
+<p>The solution consists of a transient term that decays over time and a steady-state oscillation at the driving frequency <span class="arithmatex">\( \omega \)</span>. </p>
+<h3 id="resonance-condition">Resonance Condition:</h3>
+<p>Resonance occurs when the driving frequency <span class="arithmatex">\( \omega \)</span> matches the system’s natural frequency <span class="arithmatex">\( \omega_0 \)</span>, given by:</p>
 <div class="arithmatex">\[
-\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \dots
+\omega_0 = \sqrt{1 - \frac{q^2}{4}}
 \]</div>
-<h3 id="python-code-for-ln1x-approximation"><strong>Python Code for <span class="arithmatex">\( \ln(1+x) \)</span> Approximation</strong></h3>
-<pre><code class="language-python">def taylor_ln1p(x, n):
-    """Approximate ln(1+x) using the Taylor series expansion up to n terms."""
-    if abs(x) &gt;= 1:
-        raise ValueError("Series does not converge for |x| &gt;= 1")
+<p>For weak damping (small <span class="arithmatex">\( q \)</span>), the system exhibits large oscillations near this frequency.</p>
+<h2 id="computational-analysis">Computational Analysis</h2>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
 
-    result = sum(((-1)**(i+1) * x**i) / i for i in range(1, n+1))
-    return result
+# Define the forced damped pendulum equation
+def forced_damped_pendulum(t, y, q, F, omega):
+    theta, omega_dot = y
+    dtheta_dt = omega_dot
+    domega_dt = -q * omega_dot - np.sin(theta) + F * np.cos(omega * t)
+    return [dtheta_dt, domega_dt]
 
-# Example: Approximate ln(1+x) for x = 0.5 using 5 terms
-x_value = 0.5
-n_terms = 5
-approx = taylor_ln1p(x_value, n_terms)
-exact = math.log(1 + x_value)
+# Parameters
+q = 0.5  # Damping coefficient
+F = 1.2  # Driving force amplitude
+omega = 2/3  # Driving frequency
 
-print(f"Approximate ln(1+{x_value}) using {n_terms} terms: {approx}")
-print(f"Exact ln(1+{x_value}): {exact}")
-print(f"Error: {abs(approx - exact)}")
+t_span = (0, 100)
+t_eval = np.linspace(0, 100, 10000)
+
+# Initial conditions
+y0 = [0.2, 0]
+
+# Solve the differential equation
+sol = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F, omega))
+
+# Plot the time series
+plt.figure(figsize=(10, 4))
+plt.plot(sol.t, sol.y[0], label='Theta (Angle)')
+plt.xlabel('Time')
+plt.ylabel('Angle (radians)')
+plt.title('Time Series of Forced Damped Pendulum')
+plt.legend()
+plt.grid()
+plt.show()
+
+# Phase Portrait
+plt.figure(figsize=(6, 6))
+plt.plot(sol.y[0], sol.y[1], label='Phase Space')
+plt.xlabel('Theta (Angle)')
+plt.ylabel('Angular Velocity')
+plt.title('Phase Portrait of Forced Damped Pendulum')
+plt.legend()
+plt.grid()
+plt.show()
+
+# Poincaré Section
+poincare_times = np.arange(0, 100, 2 * np.pi / omega)
+poincare_theta = []
+poincare_omega = []
+
+for t_val in poincare_times:
+    idx = np.argmin(np.abs(sol.t - t_val))
+    poincare_theta.append(sol.y[0][idx])
+    poincare_omega.append(sol.y[1][idx])
+
+plt.figure(figsize=(6, 6))
+plt.scatter(poincare_theta, poincare_omega, s=10, label='Poincaré Section')
+plt.xlabel('Theta (Angle)')
+plt.ylabel('Angular Velocity')
+plt.title('Poincaré Section of Forced Damped Pendulum')
+plt.legend()
+plt.grid()
+plt.show()
+
+# Bifurcation Diagram (Varying F)
+F_values = np.linspace(0.5, 1.5, 50)
+bifurcation_theta = []
+bifurcation_omega = []
+
+for F_val in F_values:
+    sol = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F_val, omega))
+    bifurcation_theta.append(sol.y[0][-1000::50])  # Sample last part of the solution
+    bifurcation_omega.append(sol.y[1][-1000::50])
+
+plt.figure(figsize=(10, 6))
+for i in range(len(F_values)):
+    plt.scatter([F_values[i]] * len(bifurcation_theta[i]), bifurcation_theta[i], s=1, color='black')
+
+plt.xlabel('Driving Force Amplitude F')
+plt.ylabel('Theta (Angle)')
+plt.title('Bifurcation Diagram of Forced Damped Pendulum')
+plt.grid()
+plt.show()
 </code></pre>
-<hr/>
-<h3 id="key-takeaways"><strong>Key Takeaways</strong></h3>
+<h2 id="practical-applications">Practical Applications</h2>
+<ol>
+<li><strong>Energy Harvesting</strong>: Used in vibrational energy harvesting systems to generate electricity from periodic motion.</li>
+<li><strong>Suspension Bridges</strong>: Forced oscillations can lead to resonance, causing catastrophic failures like the Tacoma Narrows Bridge.</li>
+<li><strong>Electrical Circuits</strong>: Analogous to driven RLC circuits where the voltage and current oscillate.</li>
+</ol>
+<h2 id="limitations-and-extensions">Limitations and Extensions</h2>
 <ul>
-<li>The more terms used, the more accurate the approximation.</li>
-<li>The error depends on the remainder term.</li>
-<li>Taylor series is useful in numerical computations where exact functions are costly.</li>
+<li><strong>Nonlinear Damping</strong>: The model assumes linear damping, but real-world systems may have air resistance and other nonlinear effects.</li>
+<li><strong>Non-Periodic Forcing</strong>: External forces may be irregular in real applications, requiring stochastic or chaotic modeling.</li>
 </ul>
+<p>This document covers the theoretical background, computational approach, practical implications, and limitations of the forced damped pendulum model.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
