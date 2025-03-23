@@ -106,38 +106,7 @@ This gives a value very close to the accepted mass of Earth \(5.97 \times 10^{24
 Geostationary satellites orbit Earth with a period equal to Earth's rotational period (1 sidereal day = 23.93 hours). Using Kepler's Third Law, we calculate the orbital radius for such satellites to be approximately **35,786 km** above Earth's surface.
 
 ### Computational Model and Visualization
-
-Below is a Python script to simulate orbital mechanics and visualize Kepler’s Third Law.
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Constants
-G = 6.67430e-11  # Gravitational constant in m^3 kg^-1 s^-2
-M_sun = 1.989e30  # Mass of the Sun in kg
-
-# Orbital radii (in meters)
-radii = np.linspace(1e9, 1e12, 100)  # Range of orbital radii (from 1e9 meters to 1e12 meters)
-
-# Orbital periods (in seconds) based on Kepler's Third Law
-periods = np.sqrt(4 * np.pi**2 * radii**3 / (G * M_sun))
-
-# Convert periods from seconds to years for better interpretation
-periods_years = periods / (60 * 60 * 24 * 365.25)
-
-# Plot the relationship between orbital period and orbital radius
-plt.figure(figsize=(8, 6))
-plt.plot(radii, periods_years, label="Orbital Period (years)", color="b")
-plt.xscale('log')
-plt.yscale('log')
-plt.xlabel("Orbital Radius (m)")
-plt.ylabel("Orbital Period (years)")
-plt.title("Orbital Period vs Orbital Radius")
-plt.grid(True)
-plt.legend()
-plt.show()
-```
+![alt text](image-5.png)
 
 ### Explanation of the Code:
 1. **Constants**: We define the gravitational constant \(G\) and the mass of the Sun \(M_{\text{sun}}\).
