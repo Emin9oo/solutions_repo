@@ -59,32 +59,36 @@ Depending on the initial velocity \( v_0 \), the payload follows different traje
 ## Graphical Representations
 
 ### 1. Payload Trajectories for Different Initial Velocities
-*Diagram showing free-fall, circular, elliptical, and escape trajectories.*
-
+![alt text](image-11.png)
 ### 2. Velocity vs. Altitude
-*Graph illustrating how velocity changes with altitude for different trajectories.*
+
+![alt text](image-12.png)
 
 ### 3. Time Evolution of Payload Position
-*A time-series plot displaying how altitude changes over time for different initial conditions.*
+
+![alt text](image-13.png)
 
 ### 4. Energy Analysis
-*A plot showing kinetic, potential, and total energy variations as the payload moves in different trajectory scenarios.*
+
+![alt text](image-14.png)
 
 ### 5. Orbital Shape Dependence on Initial Speed
-*Comparison of trajectory eccentricities based on initial velocity variations.*
+
+![alt text](image-15.png)
 
 ### 6. Effect of Release Direction
-*Visualizations showing how release angles affect orbital paths.*
+
+![alt text](image-16.png)
 
 ### 7. Influence of Altitude on Required Velocity
-*A graph showing how orbital insertion velocities change with altitude.*
+
+![alt text](image-17.png)
 
 ## Computational Model and Visualization
 
 The computational model simulates the trajectories of payloads released near Earth under the influence of gravity. It calculates orbital parameters such as eccentricity, specific energy, and angular momentum, and visualizes different types of trajectories through static plots. The model demonstrates how initial conditions determine whether a payload will enter orbit, escape Earth's gravitational field, or reenter the atmosphere.
 
-## Python Simulation
-![alt text](image-10.png)
+
 
 ## Conclusion
 Understanding payload trajectories near Earth is essential for space missions, satellite deployment, and interplanetary travel. Theoretical models combined with computational simulations provide insights into how different initial conditions affect an object's motion. These principles are the foundation of modern astronautics and space exploration.
