@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 2: Investigating the Dynamics of a Forced Damped Pendulum - Physics and Mathematics</title>
+<title>Investigating the Dynamics of a Forced Damped Pendulum - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 2: Investigating the Dynamics of a Forced Damped Pendulum";
+        var mkdocs_page_name = "Investigating the Dynamics of a Forced Damped Pendulum";
         var mkdocs_page_input_path = "1 Physics/1 Mechanics/Problem_2.md";
         var mkdocs_page_url = null;
       </script>
@@ -48,7 +48,7 @@
 <ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Problem 1</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2: Investigating the Dynamics of a Forced Damped Pendulum</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Investigating the Dynamics of a Forced Damped Pendulum</a>
 <ul class="current">
 </ul>
 </li>
@@ -163,7 +163,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">1 Mechanics</li>
-<li class="breadcrumb-item active">Problem 2: Investigating the Dynamics of a Forced Damped Pendulum</li>
+<li class="breadcrumb-item active">Investigating the Dynamics of a Forced Damped Pendulum</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,106 +171,75 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-2-investigating-the-dynamics-of-a-forced-damped-pendulum">Problem 2: Investigating the Dynamics of a Forced Damped Pendulum</h1>
-<p>```python
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.integrate import solve_ivp</p>
-<h1 id="1-motivation-investigating-the-dynamics-of-a-forced-damped-pendulum">1. Motivation: Investigating the Dynamics of a Forced Damped Pendulum</h1>
-<h1 id="the-forced-damped-pendulum-is-an-important-example-of-a-physical-system-that-demonstrates">The forced damped pendulum is an important example of a physical system that demonstrates</h1>
-<h1 id="complex-dynamics-which-arise-from-the-interplay-of-damping-restoring-forces-and-external">complex dynamics, which arise from the interplay of damping, restoring forces, and external</h1>
-<h1 id="periodic-driving-forces-the-motion-of-such-a-system-can-display-a-wide-range-of-behaviors">periodic driving forces. The motion of such a system can display a wide range of behaviors</h1>
-<h1 id="from-simple-harmonic-motion-to-chaotic-dynamics-depending-on-the-parameters">from simple harmonic motion to chaotic dynamics depending on the parameters.</h1>
-<h1 id="the-pendulums-behavior-is-influenced-by-factors-like-the-damping-coefficient-driving-force">The pendulum’s behavior is influenced by factors like the damping coefficient, driving force</h1>
-<h1 id="amplitude-and-driving-frequency-understanding-these-behaviors-is-essential-for-applications">amplitude, and driving frequency. Understanding these behaviors is essential for applications</h1>
-<h1 id="in-engineering-and-physics-such-as-energy-harvesting-mechanical-resonance-and-vibration-isolation">in engineering and physics, such as energy harvesting, mechanical resonance, and vibration isolation.</h1>
-<h1 id="2-parameters-for-the-forced-damped-pendulum">2. Parameters for the forced damped pendulum</h1>
-<p>q = 0.5    # Damping coefficient
-omega_0 = 1.0  # Natural frequency (rad/s)
-F = 1.0      # Amplitude of external force
-omega = 1.5    # Frequency of external force</p>
-<h1 id="3-theoretical-foundation">3. Theoretical Foundation</h1>
-<h1 id="the-equation-of-motion-for-the-forced-damped-pendulum-is-given-by">The equation of motion for the forced damped pendulum is given by:</h1>
-<h1 id="thetat-q-thetat-sintheta-f-cosomega-t">theta''(t) + q * theta'(t) + sin(theta) = F * cos(omega * t)</h1>
-<h1 id="where">where:</h1>
-<h1 id="-theta-is-the-angular-displacement">- theta is the angular displacement</h1>
-<h1 id="-q-is-the-damping-coefficient">- q is the damping coefficient</h1>
-<h1 id="-f-is-the-amplitude-of-the-external-force">- F is the amplitude of the external force</h1>
-<h1 id="-omega-is-the-frequency-of-the-external-force">- omega is the frequency of the external force</h1>
-<h1 id="for-small-theta-we-can-linearize-the-equation-by-approximating-sintheta-theta">For small theta, we can linearize the equation by approximating sin(theta) ≈ theta</h1>
-<h1 id="thetat-q-thetat-theta-f-cosomega-t">theta''(t) + q * theta'(t) + theta = F * cos(omega * t)</h1>
-<h1 id="4-differential-equation-for-the-forced-damped-pendulum">4. Differential equation for the forced damped pendulum</h1>
-<p>def forced_damped_pendulum(t, y, q, F, omega):
-    theta, omega_theta = y
-    dtheta_dt = omega_theta
-    domega_theta_dt = -q * omega_theta - np.sin(theta) + F * np.cos(omega * t)
-    return [dtheta_dt, domega_theta_dt]</p>
-<h1 id="5-time-range-for-simulation">5. Time range for simulation</h1>
-<p>t_span = (0, 100)               # From 0 to 100 seconds
-t_eval = np.linspace(0, 100, 10000)  # 10000 points in time for a smooth solution</p>
-<h1 id="6-initial-conditions-theta_0-omega_0-small-initial-displacement-zero-velocity">6. Initial conditions: [theta_0, omega_0] (small initial displacement, zero velocity)</h1>
-<p>y0 = [0.1, 0]</p>
-<h1 id="7-solve-the-ode-using-scipys-solve_ivp-runge-kutta-method">7. Solve the ODE using scipy's solve_ivp (Runge-Kutta method)</h1>
-<p>solution = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F, omega))</p>
-<h1 id="8-extract-solution">8. Extract solution</h1>
-<p>theta = solution.y[0]
-omega_theta = solution.y[1]</p>
-<h1 id="9-plot-the-motion-of-the-pendulum-theta-vs-time">9. Plot the motion of the pendulum (Theta vs Time)</h1>
-<p>plt.figure(figsize=(10, 6))
-plt.plot(solution.t, theta)
-plt.title("Forced Damped Pendulum Motion")
-plt.xlabel("Time (s)")
-plt.ylabel("Angle (theta)")
-plt.grid(True)
-plt.show()</p>
-<h1 id="10-phase-plot-theta-vs-omega-phase-space-plot">10. Phase plot: Theta vs Omega (Phase Space Plot)</h1>
-<p>plt.figure(figsize=(10, 6))
-plt.plot(theta, omega_theta)
-plt.title("Phase Space Plot")
-plt.xlabel("Theta (radians)")
-plt.ylabel("Angular Velocity (omega)")
-plt.grid(True)
-plt.show()</p>
-<h1 id="11-poincare-section-crossing-at-theta-0">11. Poincaré Section (crossing at theta = 0)</h1>
-<p>poincare_crossings = solution.t[1:][(theta[:-1] * theta[1:] &lt; 0)]  # Zero-crossings in theta
-poincare_values = omega_theta[:-1][(theta[:-1] * theta[1:] &lt; 0)]  # Corresponding omega values</p>
-<h1 id="12-plot-the-poincare-section">12. Plot the Poincaré section</h1>
-<p>plt.figure(figsize=(10, 6))
-plt.plot(poincare_crossings, poincare_values, 'o', markersize=2)
-plt.title("Poincaré Section")
-plt.xlabel("Time (s)")
-plt.ylabel("Angular Velocity (omega)")
-plt.grid(True)
-plt.show()</p>
-<h1 id="13-bifurcation-diagram-varying-f">13. Bifurcation Diagram (Varying F)</h1>
-<p>F_values = np.linspace(0.5, 1.5, 50)
-bifurcation_theta = []
-bifurcation_omega = []</p>
-<p>for F_val in F_values:
-    sol = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F_val, omega))
-    bifurcation_theta.append(sol.y[0][-1000::50])  # Sample last part of the solution
-    bifurcation_omega.append(sol.y[1][-1000::50])</p>
-<h1 id="14-plot-bifurcation-diagram">14. Plot bifurcation diagram</h1>
-<p>plt.figure(figsize=(10, 6))
-for i in range(len(F_values)):
-    plt.scatter([F_values[i]] * len(bifurcation_theta[i]), bifurcation_theta[i], s=1, color='black')</p>
-<p>plt.xlabel('Driving Force Amplitude F')
-plt.ylabel('Theta (Angle)')
-plt.title('Bifurcation Diagram of Forced Damped Pendulum')
-plt.grid()
-plt.show()</p>
-<h1 id="explanation-of-visualizations"><strong>Explanation of Visualizations:</strong></h1>
-<h1 id="1-the-first-plot-shows-the-motion-of-the-pendulum-theta-vs-time-which-reveals-how-the-pendulums-displacement-changes-over-time">1. The first plot shows the motion of the pendulum (Theta vs Time), which reveals how the pendulum's displacement changes over time.</h1>
-<h1 id="2-the-second-plot-is-the-phase-space-plot-theta-vs-angular-velocity-showing-the-relationship-between-the-angle-and-its-velocity-this-helps-in-understanding-the-systems-periodic-behavior">2. The second plot is the Phase Space Plot (Theta vs Angular Velocity), showing the relationship between the angle and its velocity. This helps in understanding the system's periodic behavior.</h1>
-<h1 id="3-the-third-plot-the-poincare-section-displays-the-systems-dynamics-in-terms-of-periodic-crossings-at-theta-0-indicating-periodic-or-chaotic-behavior">3. The third plot, the Poincaré Section, displays the system's dynamics in terms of periodic crossings at theta = 0, indicating periodic or chaotic behavior.</h1>
-<h1 id="4-the-bifurcation-diagram-shows-how-the-systems-dynamics-change-as-the-driving-frequency-omega-is-varied-which-can-reveal-resonance-and-chaotic-regions">4. The Bifurcation Diagram shows how the system's dynamics change as the driving frequency (omega) is varied, which can reveal resonance and chaotic regions.</h1>
-<h1 id="15-practical-applications">15. Practical Applications</h1>
-<h1 id="1-energy-harvesting-used-in-vibrational-energy-harvesting-systems-to-generate-electricity-from-periodic-motion">1. Energy Harvesting: Used in vibrational energy harvesting systems to generate electricity from periodic motion.</h1>
-<h1 id="2-suspension-bridges-forced-oscillations-can-lead-to-resonance-causing-catastrophic-failures-like-the-tacoma-narrows-bridge">2. Suspension Bridges: Forced oscillations can lead to resonance, causing catastrophic failures like the Tacoma Narrows Bridge.</h1>
-<h1 id="3-electrical-circuits-analogous-to-driven-rlc-circuits-where-the-voltage-and-current-oscillate">3. Electrical Circuits: Analogous to driven RLC circuits where the voltage and current oscillate.</h1>
-<h1 id="16-limitations-and-extensions">16. Limitations and Extensions:</h1>
-<h1 id="1-nonlinear-damping-the-model-assumes-linear-damping-but-real-world-systems-may-have-air-resistance-and-other-nonlinear-effects">1. Nonlinear Damping: The model assumes linear damping, but real-world systems may have air resistance and other nonlinear effects.</h1>
-<h1 id="2-non-periodic-forcing-external-forces-may-be-irregular-in-real-applications-requiring-stochastic-or-chaotic-modeling">2. Non-Periodic Forcing: External forces may be irregular in real applications, requiring stochastic or chaotic modeling.</h1>
+<h1 id="investigating-the-dynamics-of-a-forced-damped-pendulum">Investigating the Dynamics of a Forced Damped Pendulum</h1>
+<h1 id="investigating-the-dynamics-of-a-forced-damped-pendulum_1">Investigating the Dynamics of a Forced Damped Pendulum</h1>
+<h2 id="motivation"><strong>Motivation</strong></h2>
+<p>The forced damped pendulum is a classic example of a nonlinear dynamical system that exhibits a wide range of behaviors, from simple periodic motion to deterministic chaos. By studying its dynamics, we gain insights into complex oscillatory systems in physics, engineering, and even biological rhythms.</p>
+<p>This investigation explores:
+- The governing equations of motion.
+- The effects of damping and external forcing.
+- Phase space analysis and bifurcation.
+- Computational simulations for visualization.</p>
+<hr/>
+<h2 id="theoretical-background"><strong>Theoretical Background</strong></h2>
+<h3 id="newtons-second-law-and-equations-of-motion"><strong>Newton’s Second Law and Equations of Motion</strong></h3>
+<p>The motion of a simple pendulum of length <span class="arithmatex">\( L \)</span> and mass <span class="arithmatex">\( m \)</span> under the influence of gravity, damping, and an external periodic force is governed by Newton’s Second Law:
+[
+ m L \frac{d^2\theta}{dt^2} = - mg \sin\theta - b \frac{d\theta}{dt} + F_0 \cos(\omega t),
+]
+where:
+- <span class="arithmatex">\( \theta \)</span> is the angular displacement,
+- <span class="arithmatex">\( g \)</span> is the acceleration due to gravity,
+- <span class="arithmatex">\( b \)</span> is the damping coefficient,
+- <span class="arithmatex">\( F_0 \)</span> is the amplitude of the external force,
+- <span class="arithmatex">\( \omega \)</span> is the driving frequency.</p>
+<p>Rearranging, we get the nonlinear second-order differential equation:
+[
+ \frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \frac{g}{L} \sin\theta = \frac{F_0}{mL} \cos(\omega t),
+]
+where <span class="arithmatex">\( \gamma = \frac{b}{m} \)</span> is the damping factor.</p>
+<hr/>
+<h2 id="numerical-simulations"><strong>Numerical Simulations</strong></h2>
+<h3 id="python-code-for-solving-the-equation"><strong>Python Code for Solving the Equation</strong></h3>
+<p>We numerically solve the equation using the <strong>Runge-Kutta method</strong> for better accuracy:</p>
+<p><img alt="alt text" src="../image-7.png"/></p>
+<hr/>
+<h2 id="graphical-representations"><strong>Graphical Representations</strong></h2>
+<h3 id="1-time-evolution-of-angular-displacement"><strong>1. Time Evolution of Angular Displacement</strong></h3>
+<p>A plot of <span class="arithmatex">\( \theta(t) \)</span> over time shows how the pendulum oscillates under damping and periodic forcing.</p>
+<h3 id="2-phase-space-vs-angular-velocity"><strong>2. Phase Space (θ vs. Angular Velocity)</strong></h3>
+<p>The trajectory in phase space helps visualize stable and chaotic behaviors:</p>
+<p><img alt="alt text" src="../image-8.png"/></p>
+<h3 id="3-bifurcation-diagram"><strong>3. Bifurcation Diagram</strong></h3>
+<p>By varying the driving force <span class="arithmatex">\( F_0 \)</span>, we can study how the system transitions from periodic motion to chaos.</p>
+<p><img alt="alt text" src="../image-9.png"/></p>
+<hr/>
+<h2 id="analysis-of-results"><strong>Analysis of Results</strong></h2>
+<ul>
+<li>For <strong>small forcing</strong>, the pendulum exhibits <strong>regular periodic motion</strong>.</li>
+<li>As the forcing increases, the system enters <strong>quasiperiodic</strong> and then <strong>chaotic</strong> behavior.</li>
+<li>The <strong>bifurcation diagram</strong> reveals how the system transitions to chaos as the driving force increases.</li>
+</ul>
+<hr/>
+<h2 id="real-world-applications"><strong>Real-World Applications</strong></h2>
+<p>The forced damped pendulum serves as a model for various physical and engineering systems:
+- <strong>Clocks and oscillators:</strong> Pendulums in mechanical clocks.
+- <strong>Seismology:</strong> Earthquakes triggering chaotic oscillations in structures.
+- <strong>Electrical circuits:</strong> Analogous to driven RLC circuits.
+- <strong>Human walking mechanics:</strong> Leg motion modeled as forced oscillators.</p>
+<hr/>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>The forced damped pendulum is a <strong>richly complex system</strong> with behaviors ranging from simple oscillations to chaotic motion. By analyzing its <strong>equations of motion</strong>, <strong>phase space</strong>, and <strong>bifurcations</strong>, we gain a deeper understanding of nonlinear dynamical systems, chaos theory, and practical applications in engineering and science.</p>
+<p>The computational simulations provide valuable visualizations to illustrate these behaviors effectively.</p>
+<hr/>
+<h3 id="further-exploration"><strong>Further Exploration</strong></h3>
+<ul>
+<li>Explore the <strong>Poincaré section</strong> to further analyze chaotic motion.</li>
+<li>Extend the model to include <strong>double pendulums</strong> for even more complexity.</li>
+<li>Investigate the <strong>effect of different damping coefficients</strong>.</li>
+</ul>
+<hr/>
+<p>This document provides a comprehensive overview of the <strong>dynamics of a forced damped pendulum</strong>, complete with equations, Python code, and graphical analysis. </p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
