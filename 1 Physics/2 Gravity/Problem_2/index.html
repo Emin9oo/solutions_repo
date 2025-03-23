@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 2 - Physics and Mathematics</title>
+<title>Escape Velocities and Cosmic Velocities - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 2";
+        var mkdocs_page_name = "Escape Velocities and Cosmic Velocities";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_2.md";
         var mkdocs_page_url = null;
       </script>
@@ -56,8 +56,38 @@
 <ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Problem Orbital Period and Orbital Radius</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Escape Velocities and Cosmic Velocities</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#updated-escape-velocity-and-cosmic-velocities">Updated Escape Velocity and Cosmic Velocities</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#motivation">Motivation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#theoretical-foundation-expanded">Theoretical Foundation (Expanded)</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#python-code-escape-velocity-and-visualization">Python Code: Escape Velocity and Visualization</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#python-code-for-calculating-and-plotting-escape-velocity">Python Code for Calculating and Plotting Escape Velocity:</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output:</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#animation-object-moving-to-escape-velocity">Animation: Object Moving to Escape Velocity</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#explanation">Explanation:</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#log-log-plot-of-escape-velocity-vs-orbital-radius">Log-Log Plot of Escape Velocity vs Orbital Radius</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#output_1">Output:</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#conclusion-and-implications">Conclusion and Implications</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_3/">Problem 3</a>
@@ -163,7 +193,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Problem 2</li>
+<li class="breadcrumb-item active">Escape Velocities and Cosmic Velocities</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +201,73 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-2">Problem 2</h1>
+<h1 id="escape-velocities-and-cosmic-velocities">Escape Velocities and Cosmic Velocities</h1>
+<h3 id="updated-escape-velocity-and-cosmic-velocities">Updated Escape Velocity and Cosmic Velocities</h3>
+<hr/>
+<h4 id="motivation">Motivation</h4>
+<p>As mentioned earlier, understanding <strong>escape velocity</strong> and <strong>cosmic velocity</strong> is essential in orbital mechanics, and these velocities are fundamental to space exploration, satellite launches, and understanding the dynamics of celestial bodies.</p>
+<hr/>
+<h4 id="theoretical-foundation-expanded">Theoretical Foundation (Expanded)</h4>
+<h5 id="1-escape-velocity">1. Escape Velocity</h5>
+<p>The escape velocity is the minimum speed an object needs to escape from the gravitational pull of a planet or celestial body. It’s derived from the energy conservation principle where the kinetic energy must balance the gravitational potential energy.</p>
+<div class="arithmatex">\[
+v = \sqrt{\frac{2GM}{r}}
+\]</div>
+<p>Where:
+- <span class="arithmatex">\( G \)</span> is the gravitational constant.
+- <span class="arithmatex">\( M \)</span> is the mass of the celestial body.
+- <span class="arithmatex">\( r \)</span> is the distance from the center of the celestial body.</p>
+<h5 id="2-cosmic-velocities">2. Cosmic Velocities</h5>
+<p>There are three main cosmic velocities:
+1. <strong>First Cosmic Velocity</strong> (Orbital Velocity): This is the speed an object must travel to remain in a stable orbit around a body.
+   [
+   v_1 = \sqrt{\frac{GM}{r}}
+   ]
+2. <strong>Second Cosmic Velocity</strong> (Escape Velocity): The speed required to escape the gravitational influence of a body.
+3. <strong>Third Cosmic Velocity</strong> (Galaxy Escape Velocity): The speed required to escape the gravitational pull of a galaxy.</p>
+<hr/>
+<h4 id="python-code-escape-velocity-and-visualization">Python Code: Escape Velocity and Visualization</h4>
+<p>We'll visualize the relationship between escape velocity and orbital radius for different celestial bodies, as well as show how escape velocity varies for different planets.</p>
+<hr/>
+<h4 id="python-code-for-calculating-and-plotting-escape-velocity">Python Code for Calculating and Plotting Escape Velocity:</h4>
+<p><img alt="alt text" src="../image-6.png"/></p>
+<h3 id="output">Output:</h3>
+<p>The bar chart will show the escape velocities of various celestial bodies:</p>
+<ul>
+<li><strong>Earth:</strong> 11.19 km/s</li>
+<li><strong>Moon:</strong> 2.38 km/s</li>
+<li><strong>Sun:</strong> 617.66 km/s</li>
+<li><strong>Mars:</strong> 5.03 km/s</li>
+</ul>
+<p>This chart gives a comparison of escape velocities for the Earth, Moon, Sun, and Mars.</p>
+<hr/>
+<h4 id="animation-object-moving-to-escape-velocity">Animation: Object Moving to Escape Velocity</h4>
+<p>We can animate a simple object trying to escape a celestial body’s gravity by illustrating the increase in velocity over time. Let's animate an object’s velocity as it attempts to escape Earth’s gravity.</p>
+<p><img alt="alt text" src="../image-7.png"/></p>
+<h3 id="explanation">Explanation:</h3>
+<ul>
+<li>This animation shows how the velocity of an object increases with time as it attempts to escape Earth’s gravity.</li>
+<li>The velocity starts at 0 km/s and linearly increases until it reaches the escape velocity (~11.2 km/s).</li>
+</ul>
+<hr/>
+<h4 id="log-log-plot-of-escape-velocity-vs-orbital-radius">Log-Log Plot of Escape Velocity vs Orbital Radius</h4>
+<p>To understand how escape velocity varies with the radius of a celestial body, we can make a log-log plot showing the relationship between the orbital radius <span class="arithmatex">\(r\)</span> and the escape velocity <span class="arithmatex">\(v\)</span>.</p>
+<p><img alt="alt text" src="../image-8.png"/></p>
+<h3 id="output_1">Output:</h3>
+<p>The log-log plot demonstrates the relationship between orbital radius and escape velocity for Earth. The curve indicates that escape velocity decreases as the orbital radius increases.</p>
+<hr/>
+<h4 id="conclusion-and-implications">Conclusion and Implications</h4>
+<ol>
+<li>
+<p><strong>Escape Velocity</strong>: An object must reach the escape velocity to escape from the gravitational influence of a celestial body. The escape velocity increases with the mass of the body and decreases with the distance from the center.</p>
+</li>
+<li>
+<p><strong>Cosmic Velocities</strong>: The first cosmic velocity (orbital velocity) is required for stable orbits, while the second cosmic velocity (escape velocity) is needed to break free from a body’s gravitational pull. The third cosmic velocity is used for galactic escape, essential for intergalactic travel.</p>
+</li>
+<li>
+<p><strong>Visualizations</strong>: We created bar charts, animations, and log-log plots to visualize escape velocities for various bodies and how escape velocity changes with orbital radius.</p>
+</li>
+</ol>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
