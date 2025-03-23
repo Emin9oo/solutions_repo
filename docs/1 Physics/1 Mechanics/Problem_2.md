@@ -1,132 +1,97 @@
 # Problem 2: Investigating the Dynamics of a Forced Damped Pendulum
 
-# Motivation
-# The forced damped pendulum is a captivating example of a physical system 
-# that showcases complex dynamics arising from the interplay of damping forces, 
-# restoring forces, and external periodic forcing. This system transitions from 
-# simple harmonic motion to phenomena like resonance, chaos, and quasiperiodicity. 
-# These behaviors not only illuminate fundamental principles of physics, but also have 
-# applications in engineering and biology, such as energy harvesting, vibration isolation, 
-# and the study of rhythmic biological systems.
-
-# By systematically varying parameters such as the amplitude and frequency of the external 
-# force, we uncover a wide range of dynamics, including synchronized oscillations, chaotic 
-# motion, and resonance phenomena. These insights can guide the design of better mechanical 
-# systems, vibration absorbers, and electrical circuits, as well as help us understand 
-# complex real-world systems like climate dynamics and biological oscillators.
-
-# Theoretical Foundation
-
-# The Governing Equation
-# The forced damped pendulum is governed by the following nonlinear differential equation:
-#
-# d²θ/dt² + q * dθ/dt + sin(θ) = F * cos(ω * t)
-#
-# where:
-# - θ: Angular displacement (rad)
-# - q: Damping coefficient
-# - F: Amplitude of the driving force
-# - ω: Driving frequency
-# - t: Time
-
-# Small-Angle Approximation:
-# For small angles, we use the approximation sin(θ) ≈ θ, resulting in a linearized form:
-#
-# d²θ/dt² + q * dθ/dt + θ = F * cos(ω * t)
-
-# Steady-State Solution:
-# The steady-state solution, after transients decay, exhibits oscillations with amplitude A and phase φ:
-#
-# A = F / √((1 - (ω²))² + (qω)²)
-# φ = tan⁻¹(qω / (1 - ω²))
-
-# Resonance Condition:
-# Resonance occurs when the driving frequency ω matches the natural frequency of the pendulum. At resonance, 
-# the amplitude of oscillations becomes significantly large and is inversely proportional to the damping coefficient.
-
-# Analysis of Dynamics
-
-# Effect of Damping Coefficient:
-# - Underdamped (q < 1): The system oscillates with decreasing amplitude.
-# - Critically damped (q = 1): The system returns to equilibrium without oscillation in the minimum time.
-# - Overdamped (q > 1): The system returns to equilibrium slowly, without oscillating.
-
-# Effect of Driving Amplitude:
-# - Small F: Regular, periodic motion.
-# - Large F: Can lead to chaotic behavior, especially with low damping.
-
-# Effect of Driving Frequency:
-# - At resonance (ω ≈ natural frequency), oscillations reach maximum amplitude.
-
-# Computational Analysis
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
-# Define the forced damped pendulum equation
+# 1. Motivation: Investigating the Dynamics of a Forced Damped Pendulum
+# The forced damped pendulum is an important example of a physical system that demonstrates 
+# complex dynamics, which arise from the interplay of damping, restoring forces, and external 
+# periodic driving forces. The motion of such a system can display a wide range of behaviors 
+# from simple harmonic motion to chaotic dynamics depending on the parameters.
+
+# The pendulum’s behavior is influenced by factors like the damping coefficient, driving force 
+# amplitude, and driving frequency. Understanding these behaviors is essential for applications 
+# in engineering and physics, such as energy harvesting, mechanical resonance, and vibration isolation.
+
+# 2. Parameters for the forced damped pendulum
+q = 0.5    # Damping coefficient
+omega_0 = 1.0  # Natural frequency (rad/s)
+F = 1.0      # Amplitude of external force
+omega = 1.5    # Frequency of external force
+
+# 3. Theoretical Foundation
+
+# The equation of motion for the forced damped pendulum is given by:
+# theta''(t) + q * theta'(t) + sin(theta) = F * cos(omega * t)
+# where:
+# - theta is the angular displacement
+# - q is the damping coefficient
+# - F is the amplitude of the external force
+# - omega is the frequency of the external force
+
+# For small theta, we can linearize the equation by approximating sin(theta) ≈ theta:
+# theta''(t) + q * theta'(t) + theta = F * cos(omega * t)
+
+# The solution will have two components: a transient term that decays over time and a steady-state oscillation at frequency omega.
+
+# Resonance occurs when the driving frequency omega matches the natural frequency of the system (omega_0), 
+# which is given by the formula:
+# omega_0 = sqrt(1 - (q^2 / 4))
+
+# 4. Differential equation for the forced damped pendulum
 def forced_damped_pendulum(t, y, q, F, omega):
-    theta, omega_dot = y
-    dtheta_dt = omega_dot
-    domega_dt = -q * omega_dot - np.sin(theta) + F * np.cos(omega * t)
-    return [dtheta_dt, domega_dt]
+    theta, omega_theta = y
+    dtheta_dt = omega_theta
+    domega_theta_dt = -q * omega_theta - np.sin(theta) + F * np.cos(omega * t)
+    return [dtheta_dt, domega_theta_dt]
 
-# Parameters
-q = 0.5  # Damping coefficient
-F = 1.2  # Driving force amplitude
-omega = 2/3  # Driving frequency
+# 5. Time range for simulation
+t_span = (0, 100)               # From 0 to 100 seconds
+t_eval = np.linspace(0, 100, 10000)  # 10000 points in time for a smooth solution
 
-t_span = (0, 100)
-t_eval = np.linspace(0, 100, 10000)
+# 6. Initial conditions: [theta_0, omega_0] (small initial displacement, zero velocity)
+y0 = [0.1, 0]
 
-# Initial conditions
-y0 = [0.2, 0]
+# 7. Solve the ODE using scipy's solve_ivp (Runge-Kutta method)
+solution = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F, omega))
 
-# Solve the differential equation
-sol = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F, omega))
+# 8. Extract solution
+theta = solution.y[0]
+omega_theta = solution.y[1]
 
-# Visualization Results
-
-# 1. Time Series Plot
-plt.figure(figsize=(10, 4))
-plt.plot(sol.t, sol.y[0], label='Theta (Angle)')
-plt.xlabel('Time')
-plt.ylabel('Angle (radians)')
-plt.title('Time Series of Forced Damped Pendulum')
-plt.legend()
-plt.grid()
+# 9. Plot the motion of the pendulum (Theta vs Time)
+plt.figure(figsize=(10, 6))
+plt.plot(solution.t, theta)
+plt.title("Forced Damped Pendulum Motion")
+plt.xlabel("Time (s)")
+plt.ylabel("Angle (theta)")
+plt.grid(True)
 plt.show()
 
-# 2. Phase Portrait (Angular position vs. Angular velocity)
-plt.figure(figsize=(6, 6))
-plt.plot(sol.y[0], sol.y[1], label='Phase Space')
-plt.xlabel('Theta (Angle)')
-plt.ylabel('Angular Velocity')
-plt.title('Phase Portrait of Forced Damped Pendulum')
-plt.legend()
-plt.grid()
+# 10. Phase plot: Theta vs Omega (Phase Space Plot)
+plt.figure(figsize=(10, 6))
+plt.plot(theta, omega_theta)
+plt.title("Phase Space Plot")
+plt.xlabel("Theta (radians)")
+plt.ylabel("Angular Velocity (omega)")
+plt.grid(True)
 plt.show()
 
-# 3. Poincaré Section Analysis
-poincare_times = np.arange(0, 100, 2 * np.pi / omega)
-poincare_theta = []
-poincare_omega = []
+# 11. Poincaré Section (crossing at theta = 0)
+poincare_crossings = solution.t[1:][(theta[:-1] * theta[1:] < 0)]  # Zero-crossings in theta
+poincare_values = omega_theta[:-1][(theta[:-1] * theta[1:] < 0)]  # Corresponding omega values
 
-for t_val in poincare_times:
-    idx = np.argmin(np.abs(sol.t - t_val))
-    poincare_theta.append(sol.y[0][idx])
-    poincare_omega.append(sol.y[1][idx])
-
-plt.figure(figsize=(6, 6))
-plt.scatter(poincare_theta, poincare_omega, s=10, label='Poincaré Section')
-plt.xlabel('Theta (Angle)')
-plt.ylabel('Angular Velocity')
-plt.title('Poincaré Section of Forced Damped Pendulum')
-plt.legend()
-plt.grid()
+# 12. Plot the Poincaré section
+plt.figure(figsize=(10, 6))
+plt.plot(poincare_crossings, poincare_values, 'o', markersize=2)
+plt.title("Poincaré Section")
+plt.xlabel("Time (s)")
+plt.ylabel("Angular Velocity (omega)")
+plt.grid(True)
 plt.show()
 
-# 4. Bifurcation Diagram (Varying F)
+# 13. Bifurcation Diagram (Varying F)
 F_values = np.linspace(0.5, 1.5, 50)
 bifurcation_theta = []
 bifurcation_omega = []
@@ -136,6 +101,7 @@ for F_val in F_values:
     bifurcation_theta.append(sol.y[0][-1000::50])  # Sample last part of the solution
     bifurcation_omega.append(sol.y[1][-1000::50])
 
+# 14. Plot bifurcation diagram
 plt.figure(figsize=(10, 6))
 for i in range(len(F_values)):
     plt.scatter([F_values[i]] * len(bifurcation_theta[i]), bifurcation_theta[i], s=1, color='black')
@@ -146,39 +112,17 @@ plt.title('Bifurcation Diagram of Forced Damped Pendulum')
 plt.grid()
 plt.show()
 
-# Practical Applications
+# **Explanation of Visualizations:**
+# 1. The first plot shows the motion of the pendulum (Theta vs Time), which reveals how the pendulum's displacement changes over time.
+# 2. The second plot is the Phase Space Plot (Theta vs Angular Velocity), showing the relationship between the angle and its velocity. This helps in understanding the system's periodic behavior.
+# 3. The third plot, the Poincaré Section, displays the system's dynamics in terms of periodic crossings at theta = 0, indicating periodic or chaotic behavior.
+# 4. The Bifurcation Diagram shows how the system's dynamics change as the driving frequency (omega) is varied, which can reveal resonance and chaotic regions.
 
-# 1. Energy Harvesting
-# - Exploit the resonance phenomenon for energy harvesting by tuning the natural frequency of mechanical systems to match environmental vibrations.
+# 15. Practical Applications
+# 1. Energy Harvesting: Used in vibrational energy harvesting systems to generate electricity from periodic motion.
+# 2. Suspension Bridges: Forced oscillations can lead to resonance, causing catastrophic failures like the Tacoma Narrows Bridge.
+# 3. Electrical Circuits: Analogous to driven RLC circuits where the voltage and current oscillate.
 
-# 2. Structural Engineering
-# - Prevent resonance disasters in bridges (e.g., Tacoma Narrows collapse) and design vibration-damping systems for buildings in seismic zones.
-
-# 3. Electrical Circuits
-# - Analogous to RLC circuits, where resonance and damping are crucial to the behavior of driven circuits.
-
-# 4. Biological Systems
-# - Biological oscillators such as heart rhythms, neural oscillations, and circadian clocks can be modeled as forced damped systems.
-
-# Limitations and Extensions
-
-# Model Limitations:
-# - Linear damping assumption: Real-world damping could be nonlinear, especially at high speeds.
-# - Rigid pendulum assumption: The pendulum is modeled as a rigid body, neglecting elasticity or flexibility.
-# - Constant parameters: Real systems might have time-varying parameters (e.g., changing damping over time).
-# - Simplified forcing: The external force is assumed to be purely sinusoidal; real-world forces may have irregular characteristics.
-
-# Potential Extensions:
-# - Nonlinear Damping: Including terms like velocity squared (air resistance at higher speeds).
-# - Non-periodic Forcing: Exploring the system's response to random, quasi-periodic, or pulsed excitation.
-# - Multiple Pendulums: Studying coupled pendulum systems for synchronization, collective dynamics, and energy transfer.
-# - Control Strategies: Investigating feedback control to stabilize or suppress chaos in forced damped systems.
-
-# Conclusion
-# The forced damped pendulum is a remarkable example of how nonlinear dynamics can emerge from simple mechanical systems. Through this analysis, we observed 
-# a wide variety of behaviors, including periodic oscillations, resonance phenomena, and chaotic motion. The results highlight the importance of parameters 
-# such as damping, driving force amplitude, and driving frequency in determining the system's dynamics.
-
-# Our computational analysis, along with visualization tools like phase portraits, Poincaré sections, and bifurcation diagrams, has provided deep insights into 
-# the behavior of this system. These insights have broad applications in various fields, such as mechanical and structural engineering, energy harvesting, and biology.
-
+# 16. Limitations and Extensions:
+# 1. Nonlinear Damping: The model assumes linear damping, but real-world systems may have air resistance and other nonlinear effects.
+# 2. Non-Periodic Forcing: External forces may be irregular in real applications, requiring stochastic or chaotic modeling.
