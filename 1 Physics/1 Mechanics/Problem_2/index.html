@@ -172,7 +172,8 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-2-investigating-the-dynamics-of-a-forced-damped-pendulum">Problem 2: Investigating the Dynamics of a Forced Damped Pendulum</h1>
-<p>import numpy as np
+<p>```python
+import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp</p>
 <h1 id="1-motivation-investigating-the-dynamics-of-a-forced-damped-pendulum">1. Motivation: Investigating the Dynamics of a Forced Damped Pendulum</h1>
@@ -196,12 +197,8 @@ omega = 1.5    # Frequency of external force</p>
 <h1 id="-q-is-the-damping-coefficient">- q is the damping coefficient</h1>
 <h1 id="-f-is-the-amplitude-of-the-external-force">- F is the amplitude of the external force</h1>
 <h1 id="-omega-is-the-frequency-of-the-external-force">- omega is the frequency of the external force</h1>
-<h1 id="for-small-theta-we-can-linearize-the-equation-by-approximating-sintheta-theta">For small theta, we can linearize the equation by approximating sin(theta) ≈ theta:</h1>
+<h1 id="for-small-theta-we-can-linearize-the-equation-by-approximating-sintheta-theta">For small theta, we can linearize the equation by approximating sin(theta) ≈ theta</h1>
 <h1 id="thetat-q-thetat-theta-f-cosomega-t">theta''(t) + q * theta'(t) + theta = F * cos(omega * t)</h1>
-<h1 id="the-solution-will-have-two-components-a-transient-term-that-decays-over-time-and-a-steady-state-oscillation-at-frequency-omega">The solution will have two components: a transient term that decays over time and a steady-state oscillation at frequency omega.</h1>
-<h1 id="resonance-occurs-when-the-driving-frequency-omega-matches-the-natural-frequency-of-the-system-omega_0">Resonance occurs when the driving frequency omega matches the natural frequency of the system (omega_0),</h1>
-<h1 id="which-is-given-by-the-formula">which is given by the formula:</h1>
-<h1 id="omega_0-sqrt1-q2-4">omega_0 = sqrt(1 - (q^2 / 4))</h1>
 <h1 id="4-differential-equation-for-the-forced-damped-pendulum">4. Differential equation for the forced damped pendulum</h1>
 <p>def forced_damped_pendulum(t, y, q, F, omega):
     theta, omega_theta = y
