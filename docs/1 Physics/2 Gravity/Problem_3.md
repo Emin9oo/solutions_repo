@@ -1,5 +1,7 @@
 # Trajectories of a Freely Released Payload Near Earth
 
+
+
 ## Motivation
 The study of payload trajectories is fundamental in aerospace engineering and orbital mechanics. Understanding how an object behaves when released in Earth's gravitational field is crucial for satellite deployment, space missions, and re-entry calculations. By analyzing different initial conditions—such as release altitude, velocity, and direction—we can predict whether a payload will fall back to Earth, enter orbit, or escape Earth's gravity. These insights are essential for mission planning, space station resupply missions, and understanding the physics governing celestial motion.
 
