@@ -1,93 +1,135 @@
 # Problem 2
-## **Example 1: Approximation of \( e^x \) at \( x = 0 \) (Maclaurin Series)**  
-The Taylor series expansion of \( e^x \) around \( x = 0 \) (Maclaurin series) is:
+# Investigating the Dynamics of a Forced Damped Pendulum
+
+## Theoretical Foundation
+
+### Governing Equation:
+The equation of motion for a forced damped pendulum is given by:
 
 \[
-e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots
+\frac{d^2\theta}{dt^2} + q \frac{d\theta}{dt} + \sin(\theta) = F \cos(\omega t)
 \]
 
-For small \( x \), we can approximate \( e^x \) using a few terms.
+where:
+- \( \theta \) is the angular displacement,
+- \( q \) is the damping coefficient,
+- \( F \) is the driving force amplitude,
+- \( \omega \) is the driving frequency,
+- \( t \) is time.
 
-### **Python Code for \( e^x \) Approximation**
-```python
-import math
-
-def taylor_exp(x, n):
-    """Approximate e^x using the Taylor series expansion up to n terms."""
-    result = sum((x**i) / math.factorial(i) for i in range(n+1))
-    return result
-
-# Example: Approximate e^x for x = 1 using 5 terms
-x_value = 1
-n_terms = 5
-approx = taylor_exp(x_value, n_terms)
-exact = math.exp(x_value)
-
-print(f"Approximate e^{x_value} using {n_terms} terms: {approx}")
-print(f"Exact e^{x_value}: {exact}")
-print(f"Error: {abs(approx - exact)}")
-```
-
----
-
-## **Example 2: Approximation of \( \sin(x) \) at \( x = 0 \)**  
-The Taylor series for \( \sin(x) \) around \( x = 0 \) (Maclaurin series) is:
+### Small-Angle Approximation:
+For small \( \theta \), we approximate \( \sin(\theta) \approx \theta \), leading to the linearized equation:
 
 \[
-\sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots
+\frac{d^2\theta}{dt^2} + q \frac{d\theta}{dt} + \theta = F \cos(\omega t)
 \]
 
-### **Python Code for \( \sin(x) \) Approximation**
-```python
-def taylor_sin(x, n):
-    """Approximate sin(x) using the Taylor series expansion up to n terms."""
-    result = sum(((-1)**i * x**(2*i+1)) / math.factorial(2*i+1) for i in range(n+1))
-    return result
+The solution consists of a transient term that decays over time and a steady-state oscillation at the driving frequency \( \omega \). 
 
-# Example: Approximate sin(x) for x = π/4 using 5 terms
-x_value = math.pi / 4
-n_terms = 5
-approx = taylor_sin(x_value, n_terms)
-exact = math.sin(x_value)
-
-print(f"Approximate sin({x_value}) using {n_terms} terms: {approx}")
-print(f"Exact sin({x_value}): {exact}")
-print(f"Error: {abs(approx - exact)}")
-```
-
----
-
-## **Example 3: Approximation of \( \ln(1+x) \) at \( x = 0 \)**
-The Taylor series for \( \ln(1+x) \) around \( x = 0 \) is:
+### Resonance Condition:
+Resonance occurs when the driving frequency \( \omega \) matches the system’s natural frequency \( \omega_0 \), given by:
 
 \[
-\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \dots
+\omega_0 = \sqrt{1 - \frac{q^2}{4}}
 \]
 
-### **Python Code for \( \ln(1+x) \) Approximation**
+For weak damping (small \( q \)), the system exhibits large oscillations near this frequency.
+
+## Computational Analysis
+
 ```python
-def taylor_ln1p(x, n):
-    """Approximate ln(1+x) using the Taylor series expansion up to n terms."""
-    if abs(x) >= 1:
-        raise ValueError("Series does not converge for |x| >= 1")
-    
-    result = sum(((-1)**(i+1) * x**i) / i for i in range(1, n+1))
-    return result
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
 
-# Example: Approximate ln(1+x) for x = 0.5 using 5 terms
-x_value = 0.5
-n_terms = 5
-approx = taylor_ln1p(x_value, n_terms)
-exact = math.log(1 + x_value)
+# Define the forced damped pendulum equation
+def forced_damped_pendulum(t, y, q, F, omega):
+    theta, omega_dot = y
+    dtheta_dt = omega_dot
+    domega_dt = -q * omega_dot - np.sin(theta) + F * np.cos(omega * t)
+    return [dtheta_dt, domega_dt]
 
-print(f"Approximate ln(1+{x_value}) using {n_terms} terms: {approx}")
-print(f"Exact ln(1+{x_value}): {exact}")
-print(f"Error: {abs(approx - exact)}")
+# Parameters
+q = 0.5  # Damping coefficient
+F = 1.2  # Driving force amplitude
+omega = 2/3  # Driving frequency
+
+t_span = (0, 100)
+t_eval = np.linspace(0, 100, 10000)
+
+# Initial conditions
+y0 = [0.2, 0]
+
+# Solve the differential equation
+sol = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F, omega))
+
+# Plot the time series
+plt.figure(figsize=(10, 4))
+plt.plot(sol.t, sol.y[0], label='Theta (Angle)')
+plt.xlabel('Time')
+plt.ylabel('Angle (radians)')
+plt.title('Time Series of Forced Damped Pendulum')
+plt.legend()
+plt.grid()
+plt.show()
+
+# Phase Portrait
+plt.figure(figsize=(6, 6))
+plt.plot(sol.y[0], sol.y[1], label='Phase Space')
+plt.xlabel('Theta (Angle)')
+plt.ylabel('Angular Velocity')
+plt.title('Phase Portrait of Forced Damped Pendulum')
+plt.legend()
+plt.grid()
+plt.show()
+
+# Poincaré Section
+poincare_times = np.arange(0, 100, 2 * np.pi / omega)
+poincare_theta = []
+poincare_omega = []
+
+for t_val in poincare_times:
+    idx = np.argmin(np.abs(sol.t - t_val))
+    poincare_theta.append(sol.y[0][idx])
+    poincare_omega.append(sol.y[1][idx])
+
+plt.figure(figsize=(6, 6))
+plt.scatter(poincare_theta, poincare_omega, s=10, label='Poincaré Section')
+plt.xlabel('Theta (Angle)')
+plt.ylabel('Angular Velocity')
+plt.title('Poincaré Section of Forced Damped Pendulum')
+plt.legend()
+plt.grid()
+plt.show()
+
+# Bifurcation Diagram (Varying F)
+F_values = np.linspace(0.5, 1.5, 50)
+bifurcation_theta = []
+bifurcation_omega = []
+
+for F_val in F_values:
+    sol = solve_ivp(forced_damped_pendulum, t_span, y0, t_eval=t_eval, args=(q, F_val, omega))
+    bifurcation_theta.append(sol.y[0][-1000::50])  # Sample last part of the solution
+    bifurcation_omega.append(sol.y[1][-1000::50])
+
+plt.figure(figsize=(10, 6))
+for i in range(len(F_values)):
+    plt.scatter([F_values[i]] * len(bifurcation_theta[i]), bifurcation_theta[i], s=1, color='black')
+
+plt.xlabel('Driving Force Amplitude F')
+plt.ylabel('Theta (Angle)')
+plt.title('Bifurcation Diagram of Forced Damped Pendulum')
+plt.grid()
+plt.show()
 ```
 
----
+## Practical Applications
+1. **Energy Harvesting**: Used in vibrational energy harvesting systems to generate electricity from periodic motion.
+2. **Suspension Bridges**: Forced oscillations can lead to resonance, causing catastrophic failures like the Tacoma Narrows Bridge.
+3. **Electrical Circuits**: Analogous to driven RLC circuits where the voltage and current oscillate.
 
-### **Key Takeaways**
-- The more terms used, the more accurate the approximation.
-- The error depends on the remainder term.
-- Taylor series is useful in numerical computations where exact functions are costly.
+## Limitations and Extensions
+- **Nonlinear Damping**: The model assumes linear damping, but real-world systems may have air resistance and other nonlinear effects.
+- **Non-Periodic Forcing**: External forces may be irregular in real applications, requiring stochastic or chaotic modeling.
+
+This document covers the theoretical background, computational approach, practical implications, and limitations of the forced damped pendulum model.
