@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Problem 1 Electromagnetism: Simulating the Effects of the Lorentz Force - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Problem 1 Electromagnetism: Simulating the Effects of the Lorentz Force";
         var mkdocs_page_input_path = "1 Physics/4 Electromagnetism/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -70,8 +70,24 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">4 Electromagnetism</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1 Electromagnetism: Simulating the Effects of the Lorentz Force</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#1-applications-of-the-lorentz-force">1. Applications of the Lorentz Force</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#2-simulating-particle-motion">2. Simulating Particle Motion</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#3-parameter-exploration">3. Parameter Exploration</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-python-implementation">4. Python Implementation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#5-interpretation-of-results">5. Interpretation of Results</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#6-extensions-and-future-work">6. Extensions and Future Work</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -163,7 +179,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">4 Electromagnetism</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Problem 1 Electromagnetism: Simulating the Effects of the Lorentz Force</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +187,74 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<h1 id="problem-1-electromagnetism-simulating-the-effects-of-the-lorentz-force">Problem 1 Electromagnetism: Simulating the Effects of the Lorentz Force</h1>
+<h3 id="introduction"><strong>Introduction</strong></h3>
+<p>The <strong>Lorentz force</strong> is the fundamental force governing the motion of charged particles in the presence of electric and magnetic fields. It is given by:</p>
+<div class="arithmatex">\[
+\mathbf{F} = q\mathbf{E} + q\mathbf{v} \times \mathbf{B}
+\]</div>
+<p>where:
+- <span class="arithmatex">\( q \)</span> is the charge of the particle,
+- <span class="arithmatex">\( \mathbf{E} \)</span> is the electric field,
+- <span class="arithmatex">\( \mathbf{B} \)</span> is the magnetic field,
+- <span class="arithmatex">\( \mathbf{v} \)</span> is the velocity of the particle,
+- <span class="arithmatex">\( \times \)</span> denotes the cross product, leading to motion perpendicular to both velocity and magnetic field.</p>
+<p>This force is crucial in various applications, including <strong>particle accelerators, plasma physics, mass spectrometry, and astrophysics</strong>. </p>
+<p>In this simulation, we analyze the motion of a charged particle under different field conditions, providing an intuitive understanding of <strong>circular, helical, and drift motion</strong>.</p>
+<hr/>
+<h2 id="1-applications-of-the-lorentz-force"><strong>1. Applications of the Lorentz Force</strong></h2>
+<p>The Lorentz force plays a key role in many physical systems:</p>
+<ul>
+<li><strong>Particle Accelerators (Cyclotrons, Synchrotrons)</strong>: Charged particles spiral in a magnetic field, gaining energy as they are accelerated.</li>
+<li><strong>Mass Spectrometers</strong>: Ions are bent by a magnetic field, allowing mass-to-charge ratio measurement.</li>
+<li><strong>Plasma Confinement (Tokamaks)</strong>: Charged particles spiral due to the Lorentz force, enabling magnetic confinement of hot plasma.</li>
+<li><strong>Auroras</strong>: Charged particles from the solar wind interact with Earth's magnetic field, creating the northern and southern lights.</li>
+</ul>
+<p>These examples illustrate the broad significance of the Lorentz force in technology and nature.</p>
+<hr/>
+<h2 id="2-simulating-particle-motion"><strong>2. Simulating Particle Motion</strong></h2>
+<p>We implement a numerical simulation to compute the trajectory of a charged particle under the following conditions:</p>
+<ol>
+<li><strong>Uniform Magnetic Field</strong> (<span class="arithmatex">\(\mathbf{B}\)</span> only): Circular motion due to the perpendicular force.</li>
+<li><strong>Combined Electric and Magnetic Fields</strong> (<span class="arithmatex">\(\mathbf{E}\)</span> and <span class="arithmatex">\(\mathbf{B}\)</span>): Helical motion when velocity has a parallel component.</li>
+<li><strong>Crossed Electric and Magnetic Fields</strong> (<span class="arithmatex">\(\mathbf{E} \perp \mathbf{B}\)</span>): ExB drift motion occurs.</li>
+</ol>
+<p>The equation of motion is derived from <strong>Newton’s Second Law</strong>:</p>
+<div class="arithmatex">\[
+m \frac{d\mathbf{v}}{dt} = q (\mathbf{E} + \mathbf{v} \times \mathbf{B})
+\]</div>
+<p>This is solved numerically using the <strong>Euler or Runge-Kutta method</strong>.</p>
+<hr/>
+<h2 id="3-parameter-exploration"><strong>3. Parameter Exploration</strong></h2>
+<p>The following parameters influence the motion:
+- <strong>Magnetic Field Strength (<span class="arithmatex">\( B \)</span>)</strong>: Determines the Larmor radius and frequency.
+- <strong>Electric Field Strength (<span class="arithmatex">\( E \)</span>)</strong>: Affects acceleration and drift velocity.
+- <strong>Initial Velocity (<span class="arithmatex">\( v \)</span>)</strong>: Governs motion type (circular, helical, or drift).
+- <strong>Charge (<span class="arithmatex">\( q \)</span>)</strong> and <strong>Mass (<span class="arithmatex">\( m \)</span>)</strong>: Define response to fields.</p>
+<p>By varying these, we can observe different particle trajectories.</p>
+<hr/>
+<h2 id="4-python-implementation"><strong>4. Python Implementation</strong></h2>
+<p><img alt="alt text" src="../image.png"/>
+<img alt="alt text" src="../image-1.png"/>
+<img alt="alt text" src="../image-2.png"/></p>
+<h2 id="5-interpretation-of-results"><strong>5. Interpretation of Results</strong></h2>
+<ul>
+<li><strong>Uniform Magnetic Field</strong> (<span class="arithmatex">\(\mathbf{B}\)</span> only): The particle follows a <strong>circular motion</strong> (Larmor orbit).</li>
+<li><strong>Combined Electric and Magnetic Fields</strong>: The motion becomes <strong>helical</strong>, with the particle spiraling along the field lines.</li>
+<li><strong>Crossed <span class="arithmatex">\(\mathbf{E} \perp \mathbf{B}\)</span> Fields</strong>: The particle undergoes <strong>ExB drift</strong>, moving perpendicular to both fields.</li>
+</ul>
+<p>These behaviors explain fundamental concepts in plasma physics and electromagnetic confinement.</p>
+<hr/>
+<h2 id="6-extensions-and-future-work"><strong>6. Extensions and Future Work</strong></h2>
+<p>To enhance the simulation:
+- <strong>Use a more accurate numerical method (Runge-Kutta)</strong>
+- <strong>Implement non-uniform magnetic fields (e.g., dipole fields for Earth’s magnetosphere)</strong>
+- <strong>Include relativistic effects for high-energy particles</strong>
+- <strong>Simulate multiple particles to observe collective effects</strong></p>
+<p>These extensions will provide a deeper understanding of electromagnetic forces in real-world applications.</p>
+<hr/>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>This simulation provides an <strong>intuitive and visual</strong> approach to studying the Lorentz force, reinforcing its significance in fields such as plasma physics, particle accelerators, and space physics. By adjusting field configurations and initial conditions, we can explore a variety of charged particle behaviors.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
