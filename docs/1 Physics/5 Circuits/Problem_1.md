@@ -23,9 +23,9 @@ A circuit can be represented as a **graph**, where:
 - Resistors connected end-to-end.  
 - **Graph representation**: A direct path between two nodes.  
 - **Formula**:  
-  \[
+  $$\[
   R_{\text{eq}} = R_1 + R_2 + \dots + R_n
-  \]  
+  \]$$
 
 📌 **Graph Reduction**: Merge nodes into a single edge with summed resistance.  
 
@@ -33,9 +33,9 @@ A circuit can be represented as a **graph**, where:
 - Resistors share the same two nodes.  
 - **Graph representation**: Multiple edges between the same pair of nodes.  
 - **Formula**:  
-  \[
+  $$\[
   \frac{1}{R_{\text{eq}}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}
-  \]  
+  \]$$
 
 📌 **Graph Reduction**: Replace multiple edges with a single edge of equivalent resistance.  
 
@@ -78,9 +78,9 @@ A circuit can be represented as a **graph**, where:
 - Nodes: **A → B → C**  
 - Edges: **A-B (5Ω), B-C (10Ω)**  
 📌 **Reduction:**  
-\[
+$$\[
 R_{\text{eq}} = 5Ω + 10Ω = 15Ω
-\]  
+\]$$ 
 ![alt text](image.png)
 #### **Example 2: Parallel Circuit**  
 📌 **Graph Representation:**  
@@ -88,7 +88,7 @@ R_{\text{eq}} = 5Ω + 10Ω = 15Ω
 - Edges: **A-B (5Ω), A-B (10Ω)**  
 📌 **Reduction:**  
 \[
-\frac{1}{R_{\text{eq}}} = \frac{1}{5} + \frac{1}{10} \Rightarrow R_{\text{eq}} = 3.33Ω
+$$\frac{1}{R_{\text{eq}}} = \frac{1}{5} + \frac{1}{10} \Rightarrow R_{\text{eq}} = 3.33Ω
 \]  
 ![alt text](image-1.png)
 
@@ -98,7 +98,6 @@ R_{\text{eq}} = 5Ω + 10Ω = 15Ω
 - Requires **Graph Reduction + Kirchhoff’s Laws**.  
 ![alt text](image-2.png)
 ![alt text](image-3.png)
-
 ---
 
 ### **Applications**  
