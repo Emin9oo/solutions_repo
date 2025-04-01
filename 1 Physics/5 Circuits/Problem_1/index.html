@@ -235,9 +235,9 @@
 <li>Resistors connected end-to-end.  </li>
 <li><strong>Graph representation</strong>: A direct path between two nodes.  </li>
 <li><strong>Formula</strong>:<br/>
-  [
+<span class="arithmatex">\(<span class="arithmatex">\(\[
   R_{\text{eq}} = R_1 + R_2 + \dots + R_n
-  ]  </li>
+  \]\)</span>\)</span></li>
 </ul>
 <p>📌 <strong>Graph Reduction</strong>: Merge nodes into a single edge with summed resistance.  </p>
 <h4 id="2-parallel-combination"><strong>2. Parallel Combination</strong></h4>
@@ -245,9 +245,9 @@
 <li>Resistors share the same two nodes.  </li>
 <li><strong>Graph representation</strong>: Multiple edges between the same pair of nodes.  </li>
 <li><strong>Formula</strong>:<br/>
-  [
+<span class="arithmatex">\(<span class="arithmatex">\(\[
   \frac{1}{R_{\text{eq}}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}
-  ]  </li>
+  \]\)</span>\)</span></li>
 </ul>
 <p>📌 <strong>Graph Reduction</strong>: Replace multiple edges with a single edge of equivalent resistance.  </p>
 <h4 id="3-complex-networks-bridges-loops-etc"><strong>3. Complex Networks (Bridges, Loops, etc.)</strong></h4>
@@ -289,9 +289,9 @@
 - Nodes: <strong>A → B → C</strong><br/>
 - Edges: <strong>A-B (5Ω), B-C (10Ω)</strong><br/>
 📌 <strong>Reduction:</strong><br/>
-[
+<span class="arithmatex">\(<span class="arithmatex">\(\[
 R_{\text{eq}} = 5Ω + 10Ω = 15Ω
-]<br/>
+\]\)</span>\)</span>
 <img alt="alt text" src="../image.png"/></p>
 <h4 id="example-2-parallel-circuit"><strong>Example 2: Parallel Circuit</strong></h4>
 <p>📌 <strong>Graph Representation:</strong><br/>
@@ -299,7 +299,7 @@ R_{\text{eq}} = 5Ω + 10Ω = 15Ω
 - Edges: <strong>A-B (5Ω), A-B (10Ω)</strong><br/>
 📌 <strong>Reduction:</strong><br/>
 [
-\frac{1}{R_{\text{eq}}} = \frac{1}{5} + \frac{1}{10} \Rightarrow R_{\text{eq}} = 3.33Ω
+$$\frac{1}{R_{\text{eq}}} = \frac{1}{5} + \frac{1}{10} \Rightarrow R_{\text{eq}} = 3.33Ω
 ]<br/>
 <img alt="alt text" src="../image-1.png"/></p>
 <h4 id="example-3-complex-circuit-wheatstone-bridge"><strong>Example 3: Complex Circuit (Wheatstone Bridge)</strong></h4>
