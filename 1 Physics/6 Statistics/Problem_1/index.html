@@ -84,6 +84,24 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#statistics-task-problem-1">📘 Statistics Task – Problem 1</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#exploring-the-central-limit-theorem-through-simulations">Exploring the Central Limit Theorem Through Simulations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#motivation">🔥 Motivation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#1-simulating-sampling-distributions">✅ 1. Simulating Sampling Distributions</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-sampling-and-visualization">📊 2. Sampling and Visualization</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-parameter-exploration">🔍 3. Parameter Exploration</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#4-practical-applications-of-the-clt">🌍 4. Practical Applications of the CLT</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#deliverables-summary">📦 Deliverables Summary</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -172,6 +190,72 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h2 id="statistics-task-problem-1">📘 <strong>Statistics Task – Problem 1</strong></h2>
+<h3 id="exploring-the-central-limit-theorem-through-simulations"><strong>Exploring the Central Limit Theorem Through Simulations</strong></h3>
+<hr/>
+<h3 id="motivation">🔥 <strong>Motivation</strong></h3>
+<p>The <strong>Central Limit Theorem (CLT)</strong> is one of the most fundamental results in statistics. It states that, given a sufficiently large sample size, the distribution of the sample mean will approximate a <strong>normal distribution</strong>, regardless of the original population distribution's shape—whether it's uniform, skewed, or binomial.</p>
+<p>Understanding this theorem is crucial for many real-world statistical practices, such as hypothesis testing, confidence intervals, and modeling population behavior. By using simulations, we can <strong>visually explore</strong> and better understand how and why this convergence happens.</p>
+<hr/>
+<h3 id="1-simulating-sampling-distributions">✅ <strong>1. Simulating Sampling Distributions</strong></h3>
+<p>We will use Python to simulate large populations from different types of distributions:
+- <strong>Uniform Distribution</strong>
+- <strong>Exponential Distribution</strong>
+- <strong>Binomial Distribution</strong></p>
+<p>Each distribution will be used to generate a <strong>large population</strong> (e.g., 100,000 values), simulating a real-world dataset.</p>
+<p><img alt="alt text" src="../image.png"/></p>
+<hr/>
+<h3 id="2-sampling-and-visualization">📊 <strong>2. Sampling and Visualization</strong></h3>
+<p>We will:
+- Draw <strong>random samples</strong> of sizes 5, 10, 30, and 50 from each population.
+- <strong>Repeat the sampling 1000 times</strong> to create sampling distributions.
+- <strong>Plot histograms</strong> of the sample means to visualize how they approach a normal distribution.</p>
+<h4 id="code-for-sampling-and-plotting">🔁 Code for Sampling and Plotting</h4>
+<p><img alt="alt text" src="../image-1.png"/>
+<img alt="alt text" src="../image-2.png"/>
+<img alt="alt text" src="../image-3.png"/>
+These plots show how the sample mean distribution <strong>becomes more bell-shaped</strong> (normal) as the sample size increases.</p>
+<hr/>
+<h3 id="3-parameter-exploration">🔍 <strong>3. Parameter Exploration</strong></h3>
+<p>This section explores <strong>how the shape of the population distribution</strong> and <strong>sample size</strong> affect convergence to normality.</p>
+<h4 id="key-observations">Key Observations:</h4>
+<ul>
+<li>For <strong>Uniform Distribution</strong>: Convergence to normal shape is quite fast, even at sample size = 10.</li>
+<li>For <strong>Exponential Distribution</strong> (skewed): Needs a <strong>larger sample size</strong> (30 or 50) to resemble a normal distribution.</li>
+<li>For <strong>Binomial Distribution</strong>: Being discrete, it still converges, but shows more variance with small samples.</li>
+</ul>
+<h4 id="variance-impact">Variance Impact:</h4>
+<p><img alt="alt text" src="../image-4.png"/>
+- Higher population variance → <strong>wider sampling distribution</strong>
+- As sample size ↑, variance of the sample mean ↓ (spread becomes tighter)</p>
+<hr/>
+<h3 id="4-practical-applications-of-the-clt">🌍 <strong>4. Practical Applications of the CLT</strong></h3>
+<p>The CLT underpins many <strong>real-world applications</strong>, including:</p>
+<ul>
+<li><strong>Estimating population parameters</strong>: From small samples in surveys or experiments.</li>
+<li><strong>Quality control in manufacturing</strong>: Sampled products' weights, sizes, etc., can be assumed to follow normal distribution if enough samples are taken.</li>
+<li><strong>Predicting outcomes in finance</strong>: Portfolio returns, average risk estimations assume normality for modeling.</li>
+</ul>
+<h4 id="why-its-useful">Why it's useful:</h4>
+<ul>
+<li>You don’t need to know the full population distribution.</li>
+<li>Small samples still yield powerful insights thanks to CLT.</li>
+<li>Helps with constructing <strong>confidence intervals</strong> and conducting <strong>hypothesis tests</strong>.
+<img alt="alt text" src="../image-5.png"/></li>
+</ul>
+<hr/>
+<h3 id="deliverables-summary">📦 <strong>Deliverables Summary</strong></h3>
+<p>You should turn in:
+- ✅ A <strong>Markdown report</strong> with:
+  - Motivation section
+  - Description of methods and population types
+  - Discussion of results and plots
+  - Analysis of convergence and real-world relevance
+- ✅ Python <strong>code/notebook</strong> with:
+  - Population creation
+  - Sampling logic
+  - Histogram plots</p>
+<hr/>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
