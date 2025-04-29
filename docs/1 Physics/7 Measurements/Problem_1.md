@@ -85,8 +85,8 @@ To explore accuracy and convergence:
 - Then we compare it to the actual value of π to analyze the **absolute error**:
 ![alt text](image-1.png)
 \[
-\text{Error} = \left| \pi_{\text{true}} - \pi_{\text{estimated}} \right|
-\]
+$\text{Error} = \left| \pi_{\text{true}} - \pi_{\text{estimated}} \right|
+\]$
 
 ### 🔍 Key Observations:
 
