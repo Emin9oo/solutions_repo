@@ -172,6 +172,79 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<p>Sure, here’s a complete and structured explanation for <strong>Buffon’s Needle simulation</strong>, following the same format as the previous Monte Carlo π estimation task:</p>
+<hr/>
+<h1 id="estimating-using-buffons-needle-method">🎯 Estimating π Using Buffon’s Needle Method</h1>
+<hr/>
+<h2 id="theoretical-foundation">🧠 Theoretical Foundation</h2>
+<p>Buffon’s Needle is one of the oldest known problems in geometric probability. It provides a probabilistic method to estimate π through a physical or simulated experiment.</p>
+<h3 id="setup">📌 Setup:</h3>
+<ul>
+<li>We have <strong>parallel lines</strong> on a plane, spaced a fixed distance apart (e.g., 2 units).</li>
+<li>A <strong>needle of a certain length</strong> (e.g., 1 unit) is dropped randomly onto the plane.</li>
+<li>We measure whether the needle <strong>crosses any of the lines</strong>.</li>
+</ul>
+<h3 id="derivation-of-formula">📐 Derivation of Formula:</h3>
+<p>Let:
+- <span class="arithmatex">\( L \)</span>: length of the needle<br/>
+- <span class="arithmatex">\( d \)</span>: distance between the lines<br/>
+- <span class="arithmatex">\( N \)</span>: number of needles dropped<br/>
+- <span class="arithmatex">\( C \)</span>: number of needles that cross a line  </p>
+<p>If <span class="arithmatex">\( L \leq d \)</span>, then the <strong>probability</strong> that a needle crosses a line is:</p>
+<div class="arithmatex">\[
+P = \frac{2L}{\pi d}
+\]</div>
+<p>Solving for π:</p>
+<div class="arithmatex">\[
+\pi \approx \frac{2L \cdot N}{d \cdot C}
+\]</div>
+<p>This formula becomes more accurate as <strong>N</strong> increases.</p>
+<hr/>
+<h2 id="simulation">🧪 Simulation</h2>
+<p>We simulate the dropping of many needles by randomly generating:
+- The <strong>center position</strong> of the needle (between lines)
+- The <strong>angle</strong> at which it falls</p>
+<p>The condition for crossing a line is:</p>
+<div class="arithmatex">\[
+x \leq \frac{L}{2} \cdot \sin(\theta)
+\]</div>
+<p>If true, the needle crosses one of the parallel lines.</p>
+<h3 id="key-steps">🛠 Key Steps:</h3>
+<ol>
+<li>Generate random center <span class="arithmatex">\( x \)</span> between 0 and <span class="arithmatex">\( d/2 \)</span></li>
+<li>Generate random angle <span class="arithmatex">\( \theta \in [0, \frac{\pi}{2}] \)</span></li>
+<li>Count how many needles satisfy the crossing condition</li>
+<li>Use the π estimation formula</li>
+</ol>
+<hr/>
+<h2 id="visualization">📊 Visualization</h2>
+<p>To visualize the simulation:
+- Each needle is drawn as a line segment at its given angle and center.
+- <strong>Green needles</strong> cross a line.
+- <strong>Red needles</strong> do not cross.
+- Dashed horizontal lines represent the <strong>parallel lines</strong>.</p>
+<p>This helps to intuitively observe which needles contribute to estimating π.
+<img alt="alt text" src="../image.png"/></p>
+<hr/>
+<h2 id="analysis">📈 Analysis</h2>
+<p>To explore accuracy and convergence:</p>
+<ul>
+<li>We <strong>vary the number of needle drops</strong> (e.g., 100, 1000, 5000, 10,000).</li>
+<li>At each step, we compute the <strong>estimated π</strong>.</li>
+<li>Then we compare it to the actual value of π to analyze the <strong>absolute error</strong>:
+<img alt="alt text" src="../image-1.png"/>
+[
+\text{Error} = \left| \pi_{\text{true}} - \pi_{\text{estimated}} \right|
+]</li>
+</ul>
+<h3 id="key-observations">🔍 Key Observations:</h3>
+<ul>
+<li><strong>More drops → more accurate estimate</strong>, but with slower convergence.</li>
+<li>Compared to the circle method, <strong>Buffon’s Needle converges more slowly</strong> and shows more variance in small samples.</li>
+<li>The method is <strong>mathematically elegant</strong>, but less practical for fast/precise π estimation.</li>
+</ul>
+<hr/>
+<p>Let me know if you'd like the <strong>code for the convergence analysis</strong> of Buffon's Needle too (with graphs like in the previous task)!</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
