@@ -1,109 +1,106 @@
 # Problem 1
-
+ 
 ## 📘 Measuring Earth's Gravitational Acceleration with a Pendulum
-
+ 
 ### 🔬 Objective
-The aim is to estimate Earth's gravitational acceleration \( g \) using a simple pendulum and analyze how uncertainties in measurements affect the final result. This classic physics experiment demonstrates the relationship between the pendulum's period and gravitational pull using the formula:
-
+The aim is to estimate Earth's gravitational acceleration \( g \) using a simple pendulum and analyze how uncertainties in measurement affect the final result. This classic physics experiment demonstrates the relationship between pendulum period and gravitational pull using the formula:
+ 
 \[
 g = \frac{4\pi^2 L}{T^2}
 \]
-
+ 
 Where:
-- \( L \): Length of the pendulum (m)
-- \( T \): Period of one complete oscillation (s)
-
+- \( L \) is the length of the pendulum
+- \( T \) is the time period of one complete oscillation
+ 
 ---
-
+ 
 ### 🧪 Materials & Setup
-- **String Length**: ~1.00 m
-- **Pendulum Mass**: Small weight (e.g., keys, washers)
-- **Timer**: Stopwatch or smartphone timer
-- **Length Measurement Tool**: Ruler or tape (typical resolution ±0.5 cm)
-- **Setup**: The pendulum is fixed to a sturdy support and released at a small angle (<15°) to ensure simple harmonic motion.
-
+- **String Length**: ~1.00 m  
+- **Pendulum Mass**: Any small weight (e.g., keys, washers)  
+- **Timer**: Stopwatch or phone timer  
+- **Length Measurement Tool**: Ruler or tape (±0.5 cm typical resolution)  
+- The pendulum is released at a small angle (<15°) and swings freely.
+ 
 ---
-
+ 
 ### 📏 Measurements
-We perform 10 independent trials, each recording the time for 10 oscillations (\( T_{10} \)). Measuring multiple oscillations reduces errors from human reaction time.
-
+ 
+We perform 10 independent trials, each recording the time for 10 oscillations. This reduces the error caused by human timing.
+ 
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
 # Measurement Data: 10 trials of 10 oscillations each
 T_10_trials = np.array([20.0, 20.1, 19.9, 20.0, 20.2, 20.0, 19.8, 20.1, 20.0, 19.9])
-L = 1.00  # Pendulum length in meters
-delta_L = 0.005  # Uncertainty in length (e.g., ruler resolution 1 cm / 2 = 0.5 cm = 0.005 m)
-
-# Calculations
-n = len(T_10_trials)  # Number of trials (10)
-T_10_mean = np.mean(T_10_trials)  # Mean time for 10 oscillations
-sigma_T_10 = np.std(T_10_trials, ddof=1)  # Standard deviation
-delta_T_10 = sigma_T_10 / np.sqrt(n)  # Uncertainty in mean T_10
-
-T = T_10_mean / 10  # Period of one oscillation
-delta_T = delta_T_10 / 10  # Uncertainty in period
-
-g = (4 * np.pi**2 * L) / (T**2)  # Gravitational acceleration
-delta_g = g * np.sqrt((delta_L / L)**2 + (2 * delta_T / T)**2)  # Uncertainty in g
-
-# Output Results
-print(f"Pendulum Length (L): {L:.2f} ± {delta_L:.3f} m")
-print(f"Mean T_10: {T_10_mean:.2f} ± {delta_T_10:.3f} s")
-print(f"Standard Deviation (σ_T_10): {sigma_T_10:.3f} s")
-print(f"Period (T): {T:.2f} ± {delta_T:.3f} s")
-print(f"Gravitational Acceleration (g): {g:.2f} ± {delta_g:.2f} m/s²")
-
-# Markdown Table
-data = {
-    "Measurement": [f"T_10_{i+1}" for i in range(n)] + ["Mean T_10", "σ_T_10", "L", "ΔL", "T", "ΔT", "g", "Δg"],
-    "Value": [f"{t:.1f}" for t in T_10_trials] + [
-        f"{T_10_mean:.2f}", f"{sigma_T_10:.3f}", f"{L:.2f}", f"{delta_L:.3f}",
-        f"{T:.2f}", f"{delta_T:.3f}", f"{g:.2f}", f"{delta_g:.2f}"
-    ],
-    "Unit": ["s"]*n + ["s", "s", "m", "m", "s", "s", "m/s²", "m/s²"]
-}
-df = pd.DataFrame(data)
-markdown_table = df.to_markdown(index=False)
-print("\nMarkdown Table:\n")
-print(markdown_table)
-
-# Plot 1: Time for 10 Oscillations
-plt.figure(figsize=(8, 5))
-plt.plot(range(1, n+1), T_10_trials, 'bo-', label='T_10 Measurements')
-plt.axhline(T_10_mean, color='r', linestyle='--', label=f'Mean T_10 = {T_10_mean:.2f} s')
-plt.fill_between(range(1, n+2), T_10_mean - delta_T_10, T_10_mean + delta_T_10, color='r', alpha=0.2, label=f'Uncertainty ±{delta_T_10:.3f} s')
-plt.xlabel('Trial Number')
-plt.ylabel('Time for 10 Oscillations (s)')
-plt.title('Pendulum Oscillation Time Measurements')
-plt.legend()
-plt.grid(True)
-plt.savefig('plot1_T10_trials.png')
-plt.close()
-
-# Plot 2: Histogram of T_10 Measurements
-plt.figure(figsize=(8, 5))
-plt.hist(T_10_trials, bins=5, edgecolor='black', alpha=0.7)
-plt.axvline(T_10_mean, color='r', linestyle='--', label=f'Mean T_10 = {T_10_mean:.2f} s')
-plt.xlabel('Time for 10 Oscillations (s)')
-plt.ylabel('Frequency')
-plt.title('Histogram of Pendulum Oscillation Times')
-plt.legend()
-plt.grid(True)
-plt.savefig('plot2_histogram.png')
-plt.close()
-
-# Plot 3: Estimated g per Trial
-g_per_trial = (4 * np.pi**2 * L) / ((T_10_trials / 10)**2)
-plt.figure(figsize=(8, 5))
-plt.plot(range(1, n+1), g_per_trial, 'go-', label='g per Trial')
-plt.axhline(g, color='r', linestyle='--', label=f'Mean g = {g:.2f} m/s²')
-plt.xlabel('Trial Number')
-plt.ylabel('Gravitational Acceleration (m/s²)')
-plt.title('Estimated g per Trial')
-plt.legend()
-plt.grid(True)
-plt.savefig('plot3_g_per_trial.png')
-plt.close()
+```
+ 
+From this data:
+- Compute mean \( \bar{T}_{10} \)
+- Find period \( T = \bar{T}_{10} / 10 \)
+- Compute standard deviation to estimate uncertainty
+ 
+---
+ 
+### 📈 Plot 1: Time for 10 Oscillations (Trial-wise)
+This line plot helps you identify how consistent your timing was across trials. It also visualizes the spread of data and standard deviation range.
+ 
+![alt text](image-2.png)
+ 
+---
+ 
+### 📊 Plot 2: Histogram of Time Measurements
+ 
+The histogram gives a sense of frequency distribution in the measurements — a useful way to visually confirm normality or bias in timing.
+ 
+![alt text](image-3.png)
+ 
+---
+ 
+### 📉 Plot 3: Estimated \( g \) per Trial
+ 
+If we hypothetically used each trial on its own (without averaging), we’d get different values of \( g \). This plot shows the variation, reinforcing why averaging is important.
+ 
+![alt text](image-4.png)
+ 
+---
+ 
+### 📐 Calculations Summary
+ 
+1. **Average period \( T \):**
+ 
+\[
+T = \frac{\bar{T}_{10}}{10}
+\]
+ 
+2. **Standard deviation of the mean:**
+ 
+\[
+\Delta T = \frac{\sigma}{10 \sqrt{n}}
+\]
+ 
+3. **Gravitational acceleration:**
+ 
+\[
+g = \frac{4\pi^2 L}{T^2}
+\]
+ 
+4. **Uncertainty in \( g \):**
+ 
+\[
+\Delta g = g \cdot \sqrt{ \left( \frac{\Delta L}{L} \right)^2 + \left(2 \cdot \frac{\Delta T}{T} \right)^2 }
+\]
+ 
+---
+ 
+### 🧠 Analysis
+ 
+- **Measurement Resolution**:
+  - The smallest increment on your measuring tape determines \( \Delta L \).
+  - A 0.5 cm resolution → uncertainty \( \Delta L = \pm 0.005 \, \text{m} \)
+ 
+- **Timing Error**:
+  - Human reaction time is ~0.2 s
+  - Measuring 10 swings minimizes this by averaging out fluctuations
+ 
+- **Comparison with Standard**:
+  - If your result is within ±Δg of **9.81 m/s²**, the experiment is successful.
+ 
